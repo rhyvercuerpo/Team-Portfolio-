@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- ✅ Background copied from Project 1 -->
+<div class="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 p-8">
+    <div class="max-w-3xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6 text-center">📧 Email Automation Dashboard</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white shadow-lg rounded-2xl p-5">
+                <h2 class="font-semibold text-lg mb-3">Email Configuration</h2>
+                <input id="email" placeholder="recipient@example.com" class="border rounded p-2 w-full mb-2" />
+                <button onclick="addRecipient()" class="bg-indigo-500 text-white px-4 py-2 rounded">Add</button>
+
+                <ul id="recipientList" class="mt-4 text-sm"></ul>
+            </div>
+
+            <div class="bg-white shadow-lg rounded-2xl p-5">
+                <h2 class="font-semibold text-lg mb-3">Send Email</h2>
+                <button onclick="sendEmail()" class="bg-green-500 text-white px-4 py-2 rounded">Send Test Email</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+async function addRecipient() {
+    const email = document.getElementById("email").value;
+    const res = await fetch("/project6/api/", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ action: "add_recipient", email })
+    });
+    const data = await res.json();
+    alert(data.message || data.error);
+}
+
+async function sendEmail() {
+    const res = await fetch("/project6/api/", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ action: "send_email" })
+    });
+    const data = await res.json();
+    alert(data.message || data.error);
+}
+</script>
+{% endblock %}

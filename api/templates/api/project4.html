@@ -1,0 +1,167 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project 4 — Application Security Programming</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+</head>
+
+<body class="bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 min-h-screen">
+
+  <nav class="bg-white shadow-md py-4">
+    <div class="container mx-auto flex justify-between items-center px-6">
+      <a href="{% url 'home' %}" class="text-2xl font-bold text-purple-600">TeamPortfolio</a>
+      <a href="{% url 'projects' %}" class="text-gray-700 hover:text-purple-600">Back to Projects</a>
+    </div>
+  </nav>
+
+  <section class="py-20 text-center">
+    <h1 class="text-4xl font-bold text-gray-800 mb-4">🛡️ Application Security Programming</h1>
+    <p class="text-gray-600 mb-10 max-w-xl mx-auto">
+      Enter a custom message and try encrypting it with different classical ciphers.
+    </p>
+
+    <div class="mx-auto max-w-3xl bg-white shadow-md rounded-xl p-6 mb-12">
+      <h2 class="text-xl font-semibold mb-3">🔐 Encryption Playground</h2>
+      <p class="text-gray-700 mb-6">
+        Choose a cipher, enter your message, and press encrypt or decrypt.
+      </p>
+
+      <div class="flex flex-col md:flex-row justify-center gap-4 mb-6">
+        <input id="userMessage"
+               type="text"
+               placeholder="Enter your message..."
+               class="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+
+        <select id="cipherType"
+                class="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+          <option value="caesar">Caesar Cipher</option>
+          <option value="atbash">Atbash Cipher</option>
+          <option value="vigenere">Vigenère Cipher</option>
+        </select>
+
+        <input id="vigenereKey"
+               type="text"
+               placeholder="Enter key (Vigenère)"
+               class="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 hidden">
+      </div>
+
+      <div class="flex justify-center gap-4 mb-4">
+        <button id="encryptBtn"
+                class="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">
+          <i class="fa-solid fa-lock mr-2"></i> Encrypt
+        </button>
+
+        <button id="decryptBtn"
+                class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+          <i class="fa-solid fa-unlock mr-2"></i> Decrypt
+        </button>
+      </div>
+
+      <pre id="securityResult"
+           class="mt-6 bg-gray-900 text-green-400 text-left rounded-lg p-4 overflow-x-auto max-h-64"></pre>
+    </div>
+
+    <div class="mx-auto max-w-3xl bg-white shadow-md rounded-xl p-6">
+      <h2 class="text-xl font-semibold mb-3">📊 Encryption Result Explanation</h2>
+      <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 text-left">
+        <ul class="list-disc list-inside text-gray-700">
+          <li><strong>Input Message:</strong> <span id="plainText">N/A</span></li>
+          <li><strong>Encrypted Output:</strong> <span id="cipherText">N/A</span></li>
+          <li><strong>Decrypted Output:</strong> <span id="decryptedText">N/A</span></li>
+          <li><strong>Cipher Type:</strong> <span id="cipherUsed">N/A</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const cipherSelect = document.getElementById("cipherType");
+    const keyInput = document.getElementById("vigenereKey");
+    const resultDisplay = document.getElementById("securityResult");
+
+    cipherSelect.addEventListener("change", () => {
+      keyInput.classList.toggle("hidden", cipherSelect.value !== "vigenere");
+    });
+
+    const caesarShift = (text, shift) =>
+      [...text].map(ch => {
+        if (!/[a-zA-Z]/.test(ch)) return ch;
+        const base = ch === ch.toUpperCase() ? 65 : 97;
+        return String.fromCharCode(((ch.charCodeAt(0) - base + shift + 26) % 26) + base);
+      }).join("");
+
+    const atbashCipher = text =>
+      [...text].map(ch => {
+        if (!/[a-zA-Z]/.test(ch)) return ch;
+        const base = ch === ch.toUpperCase() ? 65 : 97;
+        return String.fromCharCode(25 - (ch.charCodeAt(0) - base) + base);
+      }).join("");
+
+    const vigenereCipher = (text, key, decrypt = false) => {
+      key = key.toLowerCase().replace(/[^a-z]/g, '');
+      if (!key) return text;
+      let result = '';
+      let j = 0;
+      for (let i = 0; i < text.length; i++) {
+        const ch = text[i];
+        if (/[a-zA-Z]/.test(ch)) {
+          const base = ch === ch.toUpperCase() ? 65 : 97;
+          const shift = (key[j % key.length].charCodeAt(0) - 97) * (decrypt ? -1 : 1);
+          result += String.fromCharCode(((ch.charCodeAt(0) - base + shift + 26) % 26) + base);
+          j++;
+        } else {
+          result += ch;
+        }
+      }
+      return result;
+    };
+
+    let lastMessage = "";
+    let lastCipher = "";
+    let lastKey = "";
+    let encrypted = "";
+
+    document.getElementById("encryptBtn").addEventListener("click", () => {
+      const text = document.getElementById("userMessage").value.trim();
+      const cipher = cipherSelect.value;
+      const key = keyInput.value.trim();
+
+      if (!text) return (resultDisplay.textContent = "⚠️ Please enter a message.");
+
+      let output = "";
+      if (cipher === "caesar") output = caesarShift(text, 3);
+      else if (cipher === "atbash") output = atbashCipher(text);
+      else if (cipher === "vigenere") output = vigenereCipher(text, key);
+
+      encrypted = output;
+      lastMessage = text;
+      lastCipher = cipher;
+      lastKey = key;
+
+      document.getElementById("plainText").textContent = text;
+      document.getElementById("cipherText").textContent = output;
+      document.getElementById("decryptedText").textContent = "N/A";
+      document.getElementById("cipherUsed").textContent = cipher;
+
+      resultDisplay.textContent = `🔐 Encrypted (${cipher.toUpperCase()}):\n${output}`;
+    });
+
+    document.getElementById("decryptBtn").addEventListener("click", () => {
+      if (!encrypted) return (resultDisplay.textContent = "⚠️ Please encrypt a message first.");
+
+      let decrypted = "";
+      if (lastCipher === "caesar") decrypted = caesarShift(encrypted, -3);
+      else if (lastCipher === "atbash") decrypted = atbashCipher(encrypted);
+      else if (lastCipher === "vigenere") decrypted = vigenereCipher(encrypted, lastKey, true);
+
+      document.getElementById("decryptedText").textContent = decrypted;
+      resultDisplay.textContent += `\n\n🔓 Decrypted:\n${decrypted}`;
+    });
+  </script>
+
+</body>
+</html>

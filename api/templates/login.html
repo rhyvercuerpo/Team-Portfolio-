@@ -1,0 +1,135 @@
+{% load static %}
+{% load socialaccount %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TeamPortfolio| Login or Sign Up</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    body {
+      background: radial-gradient(circle at 10% 20%, #fbc2eb 0%, #a6c1ee 90%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+    }
+    .card {
+      backdrop-filter: blur(16px);
+      background: rgba(255, 255, 255, 0.75);
+      border-radius: 1.5rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 420px;
+      padding: 2rem;
+    }
+    .tab-active {
+      color: #4f46e5;
+      border-bottom: 2px solid #4f46e5;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <div class="text-center mb-6">
+      <h1 class="text-3xl font-bold text-gray-800">Welcome to Our Portfolio</h1>
+      <p class="text-gray-600 text-sm">Sign in or create an account to continue</p>
+    </div>
+
+    <div class="flex justify-around mb-6 border-b border-gray-300">
+      <button id="loginTab" class="py-2 w-1/2 font-medium tab-active">Login</button>
+      <button id="signupTab" class="py-2 w-1/2 font-medium text-gray-600">Sign Up</button>
+    </div>
+
+    <form id="loginForm" method="POST" class="space-y-4">
+      {% csrf_token %}
+      <input type="hidden" name="form_type" value="login">
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+        <input type="text" name="username" required
+          class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+        <input type="password" name="password" required
+          class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+      </div>
+
+      <button type="submit" name="login" class="w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700 transition">
+        Login
+      </button>
+    </form>
+
+    <form id="signupForm" method="POST" class="space-y-4 hidden">
+      {% csrf_token %}
+      <input type="hidden" name="form_type" value="signup">
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+        <input type="text" name="username" required
+          class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+        <input type="password" name="password" required
+          class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+      </div>
+
+      <button type="submit" name="signup" class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition">
+        Create Account
+      </button>
+    </form>
+
+    <div class="my-6 flex items-center justify-center">
+      <div class="border-t border-gray-300 w-1/4"></div>
+      <span class="text-gray-500 mx-3 text-sm">or</span>
+      <div class="border-t border-gray-300 w-1/4"></div>
+    </div>
+
+    <div class="grid gap-3">
+      <a href="{% provider_login_url 'google' %}"
+        class="flex items-center justify-center gap-3 px-4 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 bg-white/80">
+        <i class="fab fa-google text-red-500 text-lg"></i>
+        <span class="font-medium text-gray-700">Continue with Google</span>
+      </a>
+
+      <a href="{% provider_login_url 'github' %}"
+        class="flex items-center justify-center gap-3 px-4 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 bg-white/80">
+        <i class="fab fa-github text-gray-800 text-lg"></i>
+        <span class="font-medium text-gray-700">Continue with GitHub</span>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const loginTab = document.getElementById('loginTab');
+    const signupTab = document.getElementById('signupTab');
+    const loginForm = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
+
+    loginTab.addEventListener('click', () => {
+      loginForm.classList.remove('hidden');
+      signupForm.classList.add('hidden');
+      loginTab.classList.add('tab-active');
+      signupTab.classList.remove('tab-active');
+    });
+
+    signupTab.addEventListener('click', () => {
+      signupForm.classList.remove('hidden');
+      loginForm.classList.add('hidden');
+      signupTab.classList.add('tab-active');
+      loginTab.classList.remove('tab-active');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project 2 — QR Code & Google Authenticator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    .animated-bg {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(to bottom right, #fdf2f8, #e0f2fe, #ede9fe);
+      min-height: 100vh;
+    }
+
+    .animated-bg::before,
+    .animated-bg::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.5;
+      animation: float 10s ease-in-out infinite;
+    }
+
+    .animated-bg::before {
+      width: 400px;
+      height: 400px;
+      background: #c084fc;
+      top: 10%;
+      left: -10%;
+      animation-delay: 0s;
+    }
+
+    .animated-bg::after {
+      width: 400px;
+      height: 400px;
+      background: #f9a8d4;
+      bottom: -10%;
+      right: -10%;
+      animation-delay: 3s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-30px); }
+    }
+
+    .content {
+      position: relative;
+      z-index: 10;
+    }
+  </style>
+</head>
+
+<body class="animated-bg">
+
+  <nav class="bg-white shadow-md py-4 relative z-20">
+    <div class="container mx-auto flex justify-between items-center px-6">
+      <a href="{% url 'home' %}" class="text-2xl font-bold text-purple-600">TeamPortfolio</a>
+      <a href="{% url 'projects' %}" class="text-gray-700 hover:text-purple-600">Back to Projects</a>
+    </div>
+  </nav>
+
+  <section class="py-20 text-center content">
+    <h1 class="text-4xl font-bold text-gray-800 mb-4">🔐 QR Code + Google Authenticator</h1>
+    <p class="text-gray-600 mb-8">Scan the QR code below using Google Authenticator or Authy, then enter your 6-digit OTP.</p>
+
+    <div class="bg-white shadow-md rounded-xl p-8 w-fit mx-auto">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?data={{ otp_uri|urlencode }}&size=200x200" alt="QR Code" class="mx-auto mb-6">
+
+      <form method="POST" action="{% url 'verify_otp' %}" class="flex flex-col items-center gap-4">
+        {% csrf_token %}
+        <input name="otp" type="text" maxlength="6" placeholder="Enter 6-digit OTP" class="border p-3 rounded-md w-56 text-center">
+        <button class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Verify</button>
+      </form>
+
+      {% if verified is not None %}
+        {% if verified %}
+          <p class="mt-6 text-green-600 font-semibold">✅ OTP Verified Successfully!</p>
+        {% else %}
+          <p class="mt-6 text-red-600 font-semibold">❌ Invalid OTP. Try again.</p>
+        {% endif %}
+      {% endif %}
+    </div>
+  </section>
+
+</body>
+</html>

@@ -1,0 +1,163 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project 3 — Joke API + Encryption + QR</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <style>
+    .animated-bg {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(to bottom right, #fdf2f8, #e0f2fe, #ede9fe);
+      min-height: 100vh;
+    }
+
+    .animated-bg::before,
+    .animated-bg::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.5;
+      animation: float 10s ease-in-out infinite;
+    }
+
+    .animated-bg::before {
+      width: 400px;
+      height: 400px;
+      background: #c084fc;
+      top: 10%;
+      left: -10%;
+      animation-delay: 0s;
+    }
+
+    .animated-bg::after {
+      width: 400px;
+      height: 400px;
+      background: #f9a8d4;
+      bottom: -10%;
+      right: -10%;
+      animation-delay: 3s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-30px); }
+    }
+
+    .content {
+      position: relative;
+      z-index: 10;
+    }
+  </style>
+</head>
+
+<body class="animated-bg">
+
+  <nav class="bg-white shadow-md py-4 relative z-20">
+    <div class="container mx-auto flex justify-between items-center px-6">
+      <a href="{% url 'home' %}" class="text-2xl font-bold text-purple-600">TeamPortfolio</a>
+      <a href="{% url 'projects' %}" class="text-gray-700 hover:text-purple-600">Back to Projects</a>
+    </div>
+  </nav>
+
+  <section class="py-20 text-center content">
+    <h1 class="text-4xl font-bold text-gray-800 mb-4">🤣 Joke API + Encryption + QR</h1>
+    <p class="text-gray-600 mb-8 max-w-xl mx-auto">
+      Click the button below to fetch a random joke, encrypt it, and turn it into a QR code instantly.
+    </p>
+
+    <div class="bg-white shadow-md rounded-xl p-8 w-fit mx-auto text-left">
+      <h2 class="text-lg font-semibold text-gray-700 mb-2">🧩 Original Joke:</h2>
+      <p id="jokeText" class="text-gray-800 mb-4">Click the button to load a random joke!</p>
+
+      <h2 class="text-lg font-semibold text-gray-700 mb-2">🔐 Encrypted Text:</h2>
+      <p id="encryptedText" class="text-purple-600 font-mono mb-6">N/A</p>
+
+      <h2 class="text-lg font-semibold text-gray-700 mb-4">📱 QR Code:</h2>
+      <div id="qrcode" class="mx-auto shadow-md rounded-lg bg-gray-50 p-4 w-fit"></div>
+
+      <div class="text-center mt-6">
+        <button id="generateBtn"
+          class="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">
+          🎲 Generate Random Joke
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const jokeText = document.getElementById("jokeText");
+    const encryptedText = document.getElementById("encryptedText");
+    const qrContainer = document.getElementById("qrcode");
+    const generateBtn = document.getElementById("generateBtn");
+
+    function caesarEncrypt(str, shift = 3) {
+      return [...str].map(ch => {
+        if (!/[a-zA-Z]/.test(ch)) return ch;
+        const base = ch === ch.toUpperCase() ? 65 : 97;
+        return String.fromCharCode(((ch.charCodeAt(0) - base + shift) % 26) + base);
+      }).join('');
+    }
+
+    async function generateJoke() {
+      jokeText.textContent = "Loading joke...";
+      encryptedText.textContent = "Encrypting...";
+      qrContainer.innerHTML = "";
+
+      try {
+        const res = await fetch("https://v2.jokeapi.dev/joke/Any?type=single");
+        const data = await res.json();
+
+        let joke = data.joke;
+        if (!joke) throw new Error("No joke found");
+
+        const encrypted = caesarEncrypt(joke);
+
+        jokeText.textContent = joke;
+        encryptedText.textContent = encrypted;
+
+        new QRCode(qrContainer, {
+          text: encrypted,
+          width: 200,
+          height: 200,
+          colorDark: "#4C1D95",
+          colorLight: "#ffffff",
+        });
+
+      } catch (err) {
+        console.warn("⚠️ Joke API failed, using fallback.", err);
+
+        const fallbackJokes = [
+          "Why do programmers prefer dark mode? Because light attracts bugs.",
+          "There are 10 types of people: those who understand binary and those who don’t.",
+          "A SQL query walks into a bar, approaches two tables and asks: 'Can I join you?'",
+          "Why did the developer go broke? Because he used up all his cache.",
+          "Debugging is like being the detective in a crime movie where you are also the murderer."
+        ];
+
+        const joke = fallbackJokes[Math.floor(Math.random() * fallbackJokes.length)];
+        const encrypted = caesarEncrypt(joke);
+
+        jokeText.textContent = joke;
+        encryptedText.textContent = encrypted;
+
+        new QRCode(qrContainer, {
+          text: encrypted,
+          width: 200,
+          height: 200,
+          colorDark: "#4C1D95",
+          colorLight: "#ffffff",
+        });
+      }
+    }
+
+    generateBtn.addEventListener("click", generateJoke);
+  </script>
+
+</body>
+</html>

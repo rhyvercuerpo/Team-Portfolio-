@@ -1,0 +1,158 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Projects | TeamPortfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+
+  <style>
+   .animated-bg {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(to bottom right, #fdf2f8, #e0f2fe, #ede9fe);
+  min-height: 100vh;
+}
+
+.animated-bg::before,
+.animated-bg::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.5;
+  animation: float 10s ease-in-out infinite;
+}
+
+.animated-bg::before {
+  width: 400px;
+  height: 400px;
+  background: #c084fc;
+  top: 10%;
+  left: -10%;
+  animation-delay: 0s;
+}
+
+.animated-bg::after {
+  width: 400px;
+  height: 400px;
+  background: #f9a8d4;
+  bottom: -10%;
+  right: -10%;
+  animation-delay: 3s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-30px); }
+}
+
+.content {
+  position: relative;
+  z-index: 10;
+}
+
+  </style>
+</head>
+
+<body class="bg-gray-50">
+
+  <nav class="w-full bg-white shadow-md py-4 fixed top-0 z-50">
+    <div class="container mx-auto flex justify-between items-center px-6">
+      <a href="{% url 'home' %}" class="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">
+     TeamPortfolio
+      </a>
+
+      <div class="flex items-center space-x-6">
+        <a href="{% url 'home' %}" class="text-gray-700 hover:text-purple-600">Home</a>
+        <a href="{% url 'projects' %}" class="text-purple-600 font-semibold">Projects</a>
+
+        {% if user.is_authenticated %}
+          <span class="text-gray-500 text-sm">👤 {{ user.username }}</span>
+          <a href="{% url 'logout' %}" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
+            Logout
+          </a>
+        {% else %}
+          <a href="{% url 'account' %}" class="px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600">
+            Login
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+
+  <section class="animated-bg pt-32 pb-20">
+    <div class="content container mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+          Our <span class="bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">Projects</span>
+        </h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          Discover our portfolio of cutting-edge projects that showcase innovation, creativity, and technical excellence.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <a href="{% url 'project1' %}" class="block bg-white rounded-2xl shadow-md hover:shadow-xl overflow-hidden transition">
+          <img src="{% static 'project1.png' %}" alt="Project 1" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-gray-800">API CALL - Fetch Random Dog Image</h3>
+            <p class="text-gray-600 mt-2">
+              This API call fetches a random dog image from an online source. Each execution displays a new random photo.
+            </p>
+          </div>
+        </a>
+
+        <a href="{% url 'project6' %}" class="block bg-white rounded-2xl shadow-md hover:shadow-xl overflow-hidden transition">
+          <img src="{% static 'project6.png' %}" alt="Project 2" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-gray-800">Email Automation Script</h3>
+            <p class="text-gray-600 mt-2">Sends daily fun facts via email using an API — showcasing automation and Python scripting.</p>
+          </div>
+        </a>
+
+        <a href="{% url 'project2' %}" class="block bg-white rounded-2xl shadow-md hover:shadow-xl overflow-hidden transition">
+          <img src="{% static 'project2.png' %}" alt="Project 3" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-gray-800">QR Code + Google Authenticator</h3>
+            <p class="text-gray-600 mt-2">Secure your account with 2FA by scanning a QR code to generate one-time passwords.</p>
+          </div>
+        </a>
+
+        <a href="{% url 'project3' %}" class="block bg-white rounded-2xl shadow-md hover:shadow-xl overflow-hidden transition">
+          <img src="{% static 'project3.png' %}" alt="Project 4" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-gray-800">Joke API + Encryption + QR</h3>
+            <p class="text-gray-600 mt-2">
+              Fetch a random joke, encrypt it, and generate a shareable QR code — all in one click.
+            </p>
+          </div>
+        </a>
+
+        <a href="{% url 'project4' %}" class="block bg-white rounded-2xl shadow-md hover:shadow-xl overflow-hidden transition">
+          <img src="{% static 'project4.png' %}" alt="Project 5" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-gray-800">Application Security Programming</h3>
+            <p class="text-gray-600 mt-2">Experiment with encryption ciphers like Caesar, Atbash, and Vigenère to secure text.</p>
+          </div>
+        </a>
+
+        <a href="{% url 'project5' %}" class="block bg-white rounded-2xl shadow-md hover:shadow-xl overflow-hidden transition">
+          <img src="{% static 'project5.png' %}" alt="Project 6" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-gray-800">API CALL - Exercise</h3>
+            <p class="text-gray-600 mt-2">Test encryption and decryption techniques using classic ciphers interactively.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-gray-900 text-white py-8 text-center relative z-10">
+    <p>© 2025 TeamPortfolio. All Rights Reserved.</p>
+  </footer>
+</body>
+</html>

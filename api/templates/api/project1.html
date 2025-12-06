@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project 1 — Basic API Call</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    .animated-bg {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(to bottom right, #fdf2f8, #e0f2fe, #ede9fe);
+      min-height: 100vh;
+    }
+
+    .animated-bg::before,
+    .animated-bg::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.5;
+      animation: float 10s ease-in-out infinite;
+    }
+
+    .animated-bg::before {
+      width: 400px;
+      height: 400px;
+      background: #c084fc;
+      top: 10%;
+      left: -10%;
+      animation-delay: 0s;
+    }
+
+    .animated-bg::after {
+      width: 400px;
+      height: 400px;
+      background: #f9a8d4;
+      bottom: -10%;
+      right: -10%;
+      animation-delay: 3s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-30px); }
+    }
+
+    .content {
+      position: relative;
+      z-index: 10;
+    }
+  </style>
+</head>
+
+<body class="animated-bg">
+
+  <nav class="bg-white shadow-md py-4 relative z-20">
+    <div class="container mx-auto flex justify-between items-center px-6">
+      <a href="{% url 'home' %}" class="text-2xl font-bold text-purple-600">TeamPortfolio</a>
+      <a href="{% url 'projects' %}" class="text-gray-700 hover:text-purple-600">Back to Projects</a>
+    </div>
+  </nav>
+
+  <section class="py-20 text-center content">
+    <h1 class="text-4xl font-bold text-gray-800 mb-4">🐶 Random Dog API</h1>
+    <p class="text-gray-600 mb-8">Click the button below to fetch a random dog image using a public API!</p>
+
+    <button 
+      id="fetchDog" 
+      class="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition">
+      Fetch Random Dog
+    </button>
+
+    <div class="mt-10 flex justify-center">
+      <img id="dogImage" src="" alt="Dog will appear here" class="rounded-xl shadow-md w-96 hidden">
+    </div>
+  </section>
+
+  <script>
+    document.getElementById('fetchDog').addEventListener('click', async () => {
+      const img = document.getElementById('dogImage');
+      try {
+        const response = await fetch('https://dog.ceo/api/breeds/image/random');
+        const data = await response.json();
+        img.src = data.message;
+        img.classList.remove('hidden');
+      } catch (error) {
+        alert('Failed to load dog image!');
+      }
+    });
+  </script>
+
+</body>
+</html>

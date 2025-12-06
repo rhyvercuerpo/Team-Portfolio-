@@ -1,0 +1,30 @@
+{% load socialaccount %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Continue with Google | EliteDev</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-purple-100 to-indigo-200 flex items-center justify-center min-h-screen">
+
+  <div class="bg-white/80 backdrop-blur-md rounded-2xl shadow-lg p-8 max-w-md w-full text-center">
+    <h1 class="text-2xl font-bold mb-4">Continue with Google</h1>
+    <p class="text-gray-600 mb-6">You’re about to sign in using your Google account.</p>
+
+    <form method="post" action="">
+      {% csrf_token %}
+      <button type="submit"
+        class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition">
+        Continue
+      </button>
+    </form>
+
+    <p class="mt-6 text-sm text-gray-500">
+      Not you? <a href="{% url 'account' %}" class="text-indigo-600 hover:underline">Back to login</a>
+    </p>
+  </div>
+
+</body>
+</html>

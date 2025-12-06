@@ -1,0 +1,107 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project 5 — Student List</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 min-h-screen">
+
+  <nav class="bg-white shadow-md py-4">
+    <div class="container mx-auto flex justify-between items-center px-6">
+      <a href="{% url 'home' %}" class="text-2xl font-bold text-purple-600">TeamPortfolio</a>
+      <a href="{% url 'projects' %}" class="text-gray-700 hover:text-purple-600">Back to Projects</a>
+    </div>
+  </nav>
+
+  <section class="py-20 text-center">
+    <h1 class="text-4xl font-bold text-gray-800 mb-6">🎓 Student List</h1>
+    <p class="text-gray-700 mb-10">Add and manage student information dynamically using a simple Django API.</p>
+
+    <div class="max-w-2xl mx-auto bg-white shadow-md rounded-xl p-8">
+      <h2 class="text-lg font-semibold mb-4 text-left">➕ Add New Student</h2>
+
+      <div class="flex flex-col sm:flex-row gap-3 mb-6">
+        <input id="name" type="text" placeholder="Full Name" class="border border-gray-300 rounded-lg px-4 py-2 w-full">
+        <input id="studentId" type="text" placeholder="Student ID" class="border border-gray-300 rounded-lg px-4 py-2 w-full">
+        <input id="contact" type="text" placeholder="Contact Number" class="border border-gray-300 rounded-lg px-4 py-2 w-full">
+      </div>
+
+      <button id="addBtn" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">
+        Add Student
+      </button>
+
+      <hr class="my-6">
+
+      <h3 class="text-lg font-semibold text-left mb-3">📋 Student List</h3>
+      <table class="w-full border border-gray-200 text-left">
+        <thead class="bg-gray-100 border-b border-gray-200">
+          <tr>
+            <th class="px-3 py-2">#</th>
+            <th class="px-3 py-2">Full Name</th>
+            <th class="px-3 py-2">Student ID</th>
+            <th class="px-3 py-2">Contact Number</th>
+          </tr>
+        </thead>
+        <tbody id="studentTable"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <script>
+    const apiUrl = "{% url 'project5_api' %}";
+    const tableBody = document.getElementById("studentTable");
+
+    async function loadStudents() {
+      const response = await fetch(apiUrl);
+      const data = await response.json();
+      renderStudents(data);
+    }
+
+    function renderStudents(data) {
+      tableBody.innerHTML = "";
+      data.forEach((s, i) => {
+        tableBody.innerHTML += `
+          <tr class="border-t">
+            <td class="px-3 py-2">${i + 1}</td>
+            <td class="px-3 py-2">${s.full_name}</td>
+            <td class="px-3 py-2">${s.student_id}</td>
+            <td class="px-3 py-2">${s.contact_number}</td>
+          </tr>`;
+      });
+    }
+
+    document.getElementById("addBtn").addEventListener("click", async () => {
+      const fullName = document.getElementById("name").value.trim();
+      const studentId = document.getElementById("studentId").value.trim();
+      const contactNumber = document.getElementById("contact").value.trim();
+
+      if (!fullName || !studentId || !contactNumber) {
+        alert("⚠️ Please fill in all fields!");
+        return;
+      }
+
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ full_name: fullName, student_id: studentId, contact_number: contactNumber }),
+      });
+
+      if (response.ok) {
+        alert("✅ Student added successfully!");
+        document.getElementById("name").value = "";
+        document.getElementById("studentId").value = "";
+        document.getElementById("contact").value = "";
+        loadStudents();
+      } else {
+        alert("❌ Failed to add student. Please check your input or API.");
+      }
+    });
+
+    loadStudents();
+  </script>
+</body>
+</html>
