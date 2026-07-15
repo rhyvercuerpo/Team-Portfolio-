@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gender and Socialization Quiz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #fdf6f9;
+      color: #333;
+      padding: 20px;
+      margin: 0;
+    }
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
+      background: #ffe3ec;
+      border-bottom: 5px solid #f48fb1;
+    }
+    header h1 {
+      font-size: 2em;
+      color: #ad1457;
+      margin: 0;
+    }
+    .quiz-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 25px;
+      background: #fff0f5;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    .question {
+      margin-bottom: 30px;
+    }
+    .question h3 {
+      color: #6a1b9a;
+      margin-bottom: 10px;  
+      font-weight: 600;
+    }
+    .options label {
+      display: block;
+      margin: 10px 0;
+      padding: 10px 15px;
+      background: #fce4ec;
+      border-radius: 10px;
+      border: 1px solid #f8bbd0;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .options label:hover {
+      background-color: #f8bbd0;
+    }
+    .options input[type="radio"] {
+      margin-right: 10px;
+    }
+    #submitBtn {
+      background-color: #f06292;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      font-size: 1em;
+      font-weight: 600;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+      display: block;
+      margin: 30px auto 10px;
+    }
+    #submitBtn:hover {
+      background-color: #ec407a;
+    }
+     a {
+    text-align: center;
+    display: block;
+    color: #7b1fa2;
+    text-decoration: none;
+    margin-top: 15px;
+  }
+
+    .feedback {
+      font-weight: bold;
+      margin-top: 8px;
+      padding-left: 5px;
+    }
+    .correct {
+      color: #388e3c;
+    }
+    .incorrect {
+      color: #d32f2f;
+    }
+    #result {
+      text-align: center;
+      font-size: 1.4em;
+      margin-top: 30px;
+      padding: 10px;
+      background-color: #f3e5f5;
+      border-radius: 12px;
+      color: #4a148c;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Gender and Socialization Quiz</h1>
+  </header>
+
+  <div class="quiz-container">
+    <form id="quizForm">
+     
+     <script>
+  const questions = [
+    ["Gender socialization is the process of:", "Learning the biological differences between sexes", "Assigning genders at birth", "Learning behaviors deemed appropriate for a specific gender", "Eliminating gender roles", "c"],
+    ["Which institution plays a key role in early gender socialization?", "Workplace", "Media", "Family", "Government", "c"],
+    ["A boy being encouraged to play with trucks is an example of:", "Gender fluidity", "Gender equality", "Gender socialization", "Gender identity", "c"],
+    ["Which of the following agents influence gender roles?", "Peers", "Media", "Religion", "All of the above", "d"],
+    ["Schools reinforce gender roles through:", "Gender-neutral bathrooms", "Curriculum content and teacher behavior", "Equal scholarships", "Random seat assignments", "b"],
+    ["Toys and clothing are part of gender socialization because they:", "Have no impact on identity", "Reinforce gender-neutral values", "Are randomly chosen", "Convey cultural expectations", "d"],
+    ["Socialization reinforces the idea that women should be:", "Aggressive and dominant", "Passive and nurturing", "Risk-taking and unemotional", "Athletic and unemotional", "b"],
+    ["Gender stereotypes are:", "Neutral observations", "Scientific facts", "Oversimplified and fixed ideas about gender roles", "Legal requirements", "c"],
+    ["One outcome of gender socialization is:", "Gender equality", "The destruction of norms", "The development of distinct gender roles", "None of the above", "c"],
+    ["Media portrayals often depict women as:", "Leaders", "Breadwinners", "Caregivers or objects", "Scientists", "c"],
+    ["When a girl is told not to play sports because it’s “for boys,” this is an example of:", "Empowerment", "Gender socialization", "Inclusion", "Legal discrimination", "b"],
+    ["Gender socialization affects:", "Only adults", "Only males", "People of all ages", "Only schools", "c"],
+    ["Masculinity is often associated with:", "Emotion, kindness", "Leadership, strength", "Weakness, dependence", "Supportiveness", "b"],
+    ["Gender-neutral parenting aims to:", "Enforce traditional roles", "Encourage gender stereotypes", "Promote freedom of identity", "Discipline children strictly", "c"],
+    ["A school that segregates boys and girls for different activities is reinforcing:", "Gender equality", "Gender norms", "Inclusion", "Empowerment", "b"],
+    ["The process of internalizing gender norms is called:", "Resocialization", "Gender identity", "Gender socialization", "Normative discipline", "c"],
+    ["Which agent becomes more influential in adolescence?", "Family", "Peers", "Religion", "Government", "b"],
+    ["Social media can impact gender roles by:", "Promoting only male content", "Limiting exposure to ideas", "Reinforcing or challenging stereotypes", "Preventing communication", "c"],
+    ["Teaching boys not to cry is an example of:", "Positive reinforcement", "Emotional resilience", "Toxic masculinity", "Gender equality", "c"],
+    ["To disrupt harmful gender socialization, one must:", "Accept stereotypes", "Avoid education", "Promote critical thinking", "Support all norms", "c"]
+  ];
+
+  let html = '';
+  questions.forEach((q, i) => {
+    const qNum = i + 1;
+    const [question, a, b, c, d, answer] = q;
+    html += `
+      <div class="question" data-answer="${answer}">
+        <h3>${qNum}. ${question}</h3>
+        <div class="options">
+          <label><input type="radio" name="q${qNum}" value="a"> ${a}</label>
+          <label><input type="radio" name="q${qNum}" value="b"> ${b}</label>
+          <label><input type="radio" name="q${qNum}" value="c"> ${c}</label>
+          <label><input type="radio" name="q${qNum}" value="d"> ${d}</label>
+        </div>
+        <div class="feedback" id="feedback${qNum}"></div>
+      </div>
+    `;
+  });
+
+  document.write(html);
+</script>
+
+
+      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit</button>
+      <a href="QuizzesPage.html">← Back to Quizzes</a>
+      <div id="result"></div>
+    </form>
+  </div>
+
+  <script>
+    function submitQuiz() {
+      let score = 0;
+      const totalQuestions = 20;
+
+      for (let i = 1; i <= totalQuestions; i++) {
+        const question = document.querySelector(`.question:nth-of-type(${i})`);
+        const correctAnswer = question.getAttribute('data-answer');
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        const feedback = document.getElementById(`feedback${i}`);
+
+        if (selected) {
+          if (selected.value === correctAnswer) {
+            feedback.textContent = "Correct!";
+            feedback.className = "feedback correct";
+            score++;
+          } else {
+            feedback.textContent = "Incorrect.";
+            feedback.className = "feedback incorrect";
+          }
+        } else {
+          feedback.textContent = "No answer selected.";
+          feedback.className = "feedback incorrect";
+        }
+      }
+
+      document.getElementById('result').textContent = `You scored ${score} out of ${totalQuestions}`;
+    }
+  </script>
+
+</body>
+</html>

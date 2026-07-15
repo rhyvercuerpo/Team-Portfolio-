@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Theoritical Analysis of Gender Quiz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #fdf6f9;
+      color: #333;
+      padding: 20px;
+      margin: 0;
+    }
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
+      background: #ffe3ec;
+      border-bottom: 5px solid #f48fb1;
+    }
+    header h1 {
+      font-size: 2em;
+      color: #ad1457;
+      margin: 0;
+    }
+    .quiz-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 25px;
+      background: #fff0f5;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    .question {
+      margin-bottom: 30px;
+    }
+    .question h3 {
+      color: #6a1b9a;
+      margin-bottom: 10px;  
+      font-weight: 600;
+    }
+    .options label {
+      display: block;
+      margin: 10px 0;
+      padding: 10px 15px;
+      background: #fce4ec;
+      border-radius: 10px;
+      border: 1px solid #f8bbd0;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .options label:hover {
+      background-color: #f8bbd0;
+    }
+    .options input[type="radio"] {
+      margin-right: 10px;
+    }
+    #submitBtn {
+      background-color: #f06292;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      font-size: 1em;
+      font-weight: 600;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+      display: block;
+      margin: 30px auto 10px;
+    }
+    #submitBtn:hover {
+      background-color: #ec407a;
+    }
+     a {
+    text-align: center;
+    display: block;
+    color: #7b1fa2;
+    text-decoration: none;
+    margin-top: 15px;
+  }
+
+    .feedback {
+      font-weight: bold;
+      margin-top: 8px;
+      padding-left: 5px;
+    }
+    .correct {
+      color: #388e3c;
+    }
+    .incorrect {
+      color: #d32f2f;
+    }
+    #result {
+      text-align: center;
+      font-size: 1.4em;
+      margin-top: 30px;
+      padding: 10px;
+      background-color: #f3e5f5;
+      border-radius: 12px;
+      color: #4a148c;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Theoritical Analysis of Gender Quiz</h1>
+  </header>
+
+  <div class="quiz-container">
+    <form id="quizForm">
+     
+   <script>
+  const questions = [
+    ["Feminist theory primarily seeks to:", "Promote male rights", "Explain the biological basis of sex", "Understand and address gender inequality", "Enforce gender roles", "c"],
+    ["What does symbolic interactionism focus on in gender analysis?", "Large social structures", "Conflict between classes", "Everyday interactions and meanings", "Economic exploitation", "c"],
+    ["According to conflict theory, gender inequality is:", "Natural and necessary", "A result of unequal power and resources", "Caused by biology", "Irrelevant in modern society", "b"],
+    ["Structural functionalism views gender roles as:", "Arbitrary and oppressive", "Disruptive to society", "Serving a purpose in social stability", "Nonexistent", "c"],
+    ["Which theory best critiques traditional gender norms?", "Feminist theory", "Rational choice theory", "Neoliberalism", "Post-modernism", "a"],
+    ["Judith Butler is associated with which theoretical perspective?", "Structural functionalism", "Liberal feminism", "Gender performativity", "Essentialism", "c"],
+    ["Gender performativity means that:", "Gender is biologically fixed", "Gender is a performance based on repeated actions", "Gender is not influenced by society", "Gender is always political", "b"],
+    ["Liberal feminism emphasizes:", "Radical change", "Revolution", "Legal and political equality", "Class struggle", "c"],
+    ["Radical feminism focuses on:", "Equal pay", "Voting rights", "Patriarchal structures", "Individual freedom", "c"],
+    ["Intersectional feminism emphasizes:", "Class only", "Gender only", "Race, class, gender, and other identities together", "Religion and gender exclusively", "c"],
+    ["Queer theory challenges:", "Heteronormativity and fixed identities", "Gender expression", "Biology", "Feminism", "a"],
+    ["Functionalist theory argues that traditional gender roles:", "Create conflict", "Are outdated", "Help society function", "Are socially constructed", "c"],
+    ["Which of the following is a macro-level theory of gender?", "Symbolic interactionism", "Conflict theory", "Role theory", "Dramaturgical analysis", "b"],
+    ["Post-structuralist theory sees gender as:", "Based in nature", "Universal", "Fluid and discursively constructed", "Fixed", "c"],
+    ["Marxist feminism links gender oppression to:", "Politics", "Capitalism", "Culture", "Biology", "b"],
+    ["Gender roles are seen as social constructs in:", "Essentialism", "Structuralism", "Social constructionism", "Utilitarianism", "c"],
+    ["Which theory critiques the binary understanding of gender?", "Functionalism", "Queer theory", "Role theory", "Behaviorism", "b"],
+    ["In conflict theory, male dominance is interpreted as:", "Inevitable", "A historical accident", "A reflection of capitalist control", "Natural", "c"],
+    ["Feminist empiricism emphasizes:", "Subjectivity in research", "Male superiority", "Value-free science with gender awareness", "Objectivity without critique", "c"],
+    ["Which approach focuses on how language shapes our understanding of gender?", "Positivism", "Structuralism", "Post-structuralism", "Essentialism", "c"]
+  ];
+
+  let html = '';
+  questions.forEach((q, i) => {
+    const qNum = i + 1;
+    const [question, a, b, c, d, answer] = q;
+    html += `
+      <div class="question" data-answer="${answer}">
+        <h3>${qNum}. ${question}</h3>
+        <div class="options">
+          <label><input type="radio" name="q${qNum}" value="a"> ${a}</label>
+          <label><input type="radio" name="q${qNum}" value="b"> ${b}</label>
+          <label><input type="radio" name="q${qNum}" value="c"> ${c}</label>
+          <label><input type="radio" name="q${qNum}" value="d"> ${d}</label>
+        </div>
+        <div class="feedback" id="feedback${qNum}"></div>
+      </div>
+    `;
+  });
+
+  document.write(html);
+</script>
+
+
+
+      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit</button>
+      <a href="QuizzesPage.html">← Back to Quizzes</a>
+      <div id="result"></div>
+    </form>
+  </div>
+
+  <script>
+    function submitQuiz() {
+      let score = 0;
+      const totalQuestions = 20;
+
+      for (let i = 1; i <= totalQuestions; i++) {
+        const question = document.querySelector(`.question:nth-of-type(${i})`);
+        const correctAnswer = question.getAttribute('data-answer');
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        const feedback = document.getElementById(`feedback${i}`);
+
+        if (selected) {
+          if (selected.value === correctAnswer) {
+            feedback.textContent = "Correct!";
+            feedback.className = "feedback correct";
+            score++;
+          } else {
+            feedback.textContent = "Incorrect.";
+            feedback.className = "feedback incorrect";
+          }
+        } else {
+          feedback.textContent = "No answer selected.";
+          feedback.className = "feedback incorrect";
+        }
+      }
+
+      document.getElementById('result').textContent = `You scored ${score} out of ${totalQuestions}`;
+    }
+  </script>
+
+</body>
+</html>

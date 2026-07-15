@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VAWC / RA 9262</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #fdf6f9;
+      color: #333;
+      padding: 20px;
+      margin: 0;
+    }
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
+      background: #ffe3ec;
+      border-bottom: 5px solid #f48fb1;
+    }
+    header h1 {
+      font-size: 2em;
+      color: #ad1457;
+      margin: 0;
+    }
+    .quiz-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 25px;
+      background: #fff0f5;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    .question {
+      margin-bottom: 30px;
+    }
+    .question h3 {
+      color: #6a1b9a;
+      margin-bottom: 10px;  
+      font-weight: 600;
+    }
+    .options label {
+      display: block;
+      margin: 10px 0;
+      padding: 10px 15px;
+      background: #fce4ec;
+      border-radius: 10px;
+      border: 1px solid #f8bbd0;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .options label:hover {
+      background-color: #f8bbd0;
+    }
+    .options input[type="radio"] {
+      margin-right: 10px;
+    }
+    #submitBtn {
+      background-color: #f06292;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      font-size: 1em;
+      font-weight: 600;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+      display: block;
+      margin: 30px auto 10px;
+    }
+    #submitBtn:hover {
+      background-color: #ec407a;
+    }
+     a {
+    text-align: center;
+    display: block;
+    color: #7b1fa2;
+    text-decoration: none;
+    margin-top: 15px;
+  }
+
+    .feedback {
+      font-weight: bold;
+      margin-top: 8px;
+      padding-left: 5px;
+    }
+    .correct {
+      color: #388e3c;
+    }
+    .incorrect {
+      color: #d32f2f;
+    }
+    #result {
+      text-align: center;
+      font-size: 1.4em;
+      margin-top: 30px;
+      padding: 10px;
+      background-color: #f3e5f5;
+      border-radius: 12px;
+      color: #4a148c;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>VAWC / RA 9262 Quiz</h1>
+  </header>
+
+  <div class="quiz-container">
+    <form id="quizForm">
+     
+<script>
+  const questions = [
+    ["What does VAWC stand for?", 
+     "Violence Against World Cultures", 
+     "Verbal Abuse Within Communities", 
+     "Violence Against Women and Their Children", 
+     "Volunteer Advocates for Women and Children", 
+     "c"],
+
+    ["What is the main purpose of RA 9262?", 
+     "To restrict women’s rights", 
+     "To protect women and children from abuse", 
+     "To enforce curfews", 
+     "To ban social media", 
+     "b"],
+
+    ["Who can file a complaint under RA 9262?", 
+     "Only husbands", 
+     "Only government officials", 
+     "Women and children experiencing abuse", 
+     "Only minors", 
+     "c"],
+
+    ["Which of the following is NOT covered by RA 9262?", 
+     "Physical abuse", 
+     "Emotional abuse", 
+     "Traffic violations", 
+     "Sexual abuse", 
+     "c"],
+
+    ["What is a BPO in relation to VAWC?", 
+     "Business Process Outsourcing", 
+     "Barangay Protection Order", 
+     "Basic Police Operation", 
+     "Bureau of Public Order", 
+     "b"],
+
+    ["What type of relationship must exist for RA 9262 to apply?", 
+     "Landlord-tenant", 
+     "Intimate or family relationship", 
+     "Work colleagues", 
+     "Political rivals", 
+     "b"],
+
+    ["Which of the following is an example of economic abuse?", 
+     "Giving a gift", 
+     "Controlling access to money or employment", 
+     "Filing taxes", 
+     "Providing groceries", 
+     "b"],
+
+    ["RA 9262 also protects:", 
+     "Only married women", 
+     "Former partners and their children", 
+     "Business partners", 
+     "Male employees", 
+     "b"],
+
+    ["What is a Temporary Protection Order (TPO)?", 
+     "A loan agreement", 
+     "A short-term court order to protect the victim", 
+     "A school policy", 
+     "A housing document", 
+     "b"],
+
+    ["Which government body implements RA 9262?", 
+     "DPWH", 
+     "DFA", 
+     "DSWD and PNP Women and Children’s Protection Desk", 
+     "CHED", 
+     "c"],
+
+    ["What is one common sign of emotional abuse under RA 9262?", 
+     "Giving compliments", 
+     "Humiliating the victim in public", 
+     "Ignoring problems", 
+     "Cooking for the family", 
+     "b"],
+
+    ["A woman being monitored or followed by her partner without consent is experiencing:", 
+     "Respect", 
+     "Psychological violence", 
+     "Encouragement", 
+     "Support", 
+     "b"],
+
+    ["What is the penalty for violating RA 9262?", 
+     "Community service only", 
+     "Imprisonment and/or fine", 
+     "Warning letter", 
+     "Deportation", 
+     "b"],
+
+    ["What is the effect of VAWC on children?", 
+     "Academic excellence", 
+     "Emotional trauma and behavioral problems", 
+     "Financial independence", 
+     "Political awareness", 
+     "b"],
+
+    ["RA 9262 covers violence committed:", 
+     "In public only", 
+     "In both public and private spaces", 
+     "In offices only", 
+     "At court hearings only", 
+     "b"],
+
+    ["Psychological violence may include:", 
+     "Financial planning", 
+     "Threats, intimidation, and verbal abuse", 
+     "Healthcare support", 
+     "Academic achievements", 
+     "b"],
+
+    ["Where can a victim go for immediate help under RA 9262?", 
+     "Library", 
+     "Barangay Hall or Police Station", 
+     "Fast food restaurant", 
+     "Driving school", 
+     "b"],
+
+    ["Why is RA 9262 important?", 
+     "It punishes women", 
+     "It promotes silence", 
+     "It empowers women and children to seek justice", 
+     "It cancels family events", 
+     "c"],
+
+    ["One key requirement for filing a case under RA 9262 is:", 
+     "Marriage license", 
+     "Evidence or testimony of abuse", 
+     "Business registration", 
+     "Passport", 
+     "b"],
+
+    ["A support system under RA 9262 may include:", 
+     "Sports team", 
+     "Counseling, legal aid, and shelter", 
+     "Shopping discounts", 
+     "Entertainment shows", 
+     "b"]
+  ];
+
+  let html = '';
+  questions.forEach((q, i) => {
+    const qNum = i + 1;
+    const [question, a, b, c, d, answer] = q;
+    html += `
+      <div class="question" data-answer="${answer}">
+        <h3>${qNum}. ${question}</h3>
+        <div class="options">
+          <label><input type="radio" name="q${qNum}" value="a"> ${a}</label>
+          <label><input type="radio" name="q${qNum}" value="b"> ${b}</label>
+          <label><input type="radio" name="q${qNum}" value="c"> ${c}</label>
+          <label><input type="radio" name="q${qNum}" value="d"> ${d}</label>
+        </div>
+        <div class="feedback" id="feedback${qNum}"></div>
+      </div>
+    `;
+  });
+
+  document.write(html);
+</script>
+
+      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit</button>
+      <a href="QuizzesPage.html">← Back to Quizzes</a>
+      <div id="result"></div>
+    </form>
+  </div>
+
+  <script>
+    function submitQuiz() {
+      let score = 0;
+      const totalQuestions = 20;
+
+      for (let i = 1; i <= totalQuestions; i++) {
+        const question = document.querySelector(`.question:nth-of-type(${i})`);
+        const correctAnswer = question.getAttribute('data-answer');
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        const feedback = document.getElementById(`feedback${i}`);
+
+        if (selected) {
+          if (selected.value === correctAnswer) {
+            feedback.textContent = "Correct!";
+            feedback.className = "feedback correct";
+            score++;
+          } else {
+            feedback.textContent = "Incorrect.";
+            feedback.className = "feedback incorrect";
+          }
+        } else {
+          feedback.textContent = "No answer selected.";
+          feedback.className = "feedback incorrect";
+        }
+      }
+
+      document.getElementById('result').textContent = `You scored ${score} out of ${totalQuestions}`;
+    }
+  </script>
+
+</body>
+</html>

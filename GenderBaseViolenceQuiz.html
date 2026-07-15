@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gender Base Violence</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #fdf6f9;
+      color: #333;
+      padding: 20px;
+      margin: 0;
+    }
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
+      background: #ffe3ec;
+      border-bottom: 5px solid #f48fb1;
+    }
+    header h1 {
+      font-size: 2em;
+      color: #ad1457;
+      margin: 0;
+    }
+    .quiz-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 25px;
+      background: #fff0f5;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    .question {
+      margin-bottom: 30px;
+    }
+    .question h3 {
+      color: #6a1b9a;
+      margin-bottom: 10px;  
+      font-weight: 600;
+    }
+    .options label {
+      display: block;
+      margin: 10px 0;
+      padding: 10px 15px;
+      background: #fce4ec;
+      border-radius: 10px;
+      border: 1px solid #f8bbd0;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .options label:hover {
+      background-color: #f8bbd0;
+    }
+    .options input[type="radio"] {
+      margin-right: 10px;
+    }
+    #submitBtn {
+      background-color: #f06292;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      font-size: 1em;
+      font-weight: 600;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+      display: block;
+      margin: 30px auto 10px;
+    }
+    #submitBtn:hover {
+      background-color: #ec407a;
+    }
+     a {
+    text-align: center;
+    display: block;
+    color: #7b1fa2;
+    text-decoration: none;
+    margin-top: 15px;
+  }
+
+    .feedback {
+      font-weight: bold;
+      margin-top: 8px;
+      padding-left: 5px;
+    }
+    .correct {
+      color: #388e3c;
+    }
+    .incorrect {
+      color: #d32f2f;
+    }
+    #result {
+      text-align: center;
+      font-size: 1.4em;
+      margin-top: 30px;
+      padding: 10px;
+      background-color: #f3e5f5;
+      border-radius: 12px;
+      color: #4a148c;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Gender Base Violence Quiz</h1>
+  </header>
+
+  <div class="quiz-container">
+    <form id="quizForm">
+     
+<script>
+  const questions = [
+    ["What does GBV stand for?", "Government-Based Voting", "Gender-Based Violence", "General Body Violence", "Gender Balance View", "b"],
+    ["Which of the following is a form of GBV?", "Equal job hiring", "Domestic abuse", "Community outreach", "Gender-neutral language", "b"],
+    ["Which Philippine law addresses GBV?", "RA 9262", "RA 1425", "RA 7722", "RA 9165", "a"],
+    ["GBV is often rooted in:", "Religious beliefs", "Technological change", "Unequal power relations", "Nationalism", "c"],
+    ["Which group is most vulnerable to GBV?", "Business owners", "Government officials", "Women and LGBTQ+ individuals", "Senior citizens", "c"],
+    ["Verbal threats and insults are considered:", "Political opinions", "Emotional or psychological violence", "Academic discipline", "Legal advice", "b"],
+    ["One effect of GBV on survivors is:", "Improved confidence", "Mental trauma", "Career promotion", "Economic growth", "b"],
+    ["Sexual harassment in the workplace is an example of:", "Corporate policy", "Gender-Based Violence", "Friendly teasing", "Office communication", "b"],
+    ["Physical violence involves:", "Ignoring someone", "Name-calling", "Hitting, slapping, or pushing", "Eye contact", "c"],
+    ["GBV is addressed internationally by:", "FIFA", "IMF", "United Nations (UN)", "World Bank", "c"],
+    ["One form of institutional GBV is:", "National elections", "Lack of legal protection for victims", "Gender quotas", "Inclusive laws", "b"],
+    ["Stalking or monitoring a partner’s movements is a sign of:", "Trust", "Controlling behavior or abuse", "Support", "Love", "b"],
+    ["The first step in helping a GBV victim is to:", "Blame them", "Dismiss their experience", "Listen without judgment", "Ignore the problem", "c"],
+    ["Which type of GBV involves financial control?", "Emotional abuse", "Economic abuse", "Legal abuse", "Cyber abuse", "b"],
+    ["A common reason why survivors don’t report GBV is:", "Media attention", "Fear of retaliation or shame", "Legal incentives", "Free housing", "b"],
+    ["Cyber GBV may include:", "Online voting", "Sending threats or sexual messages", "Watching videos", "Joining webinars", "b"],
+    ["What is the role of the barangay VAWC desk?", "Issue IDs", "Offer scholarships", "Assist GBV victims and monitor cases", "Organize elections", "c"],
+    ["Gender sensitization helps:", "Increase stereotypes", "Prevent and reduce GBV", "Silence women", "Promote male dominance", "b"],
+    ["Under RA 9262, protection orders can be given to:", "Perpetrators only", "Women and their children", "Teachers only", "Foreign workers", "b"],
+    ["Which is an example of a supportive action against GBV?", "Victim blaming", "Offering safe shelters and counseling", "Discouraging reports", "Tolerating harassment", "b"]
+  ];
+
+  let html = '';
+  questions.forEach((q, i) => {
+    const qNum = i + 1;
+    const [question, a, b, c, d, answer] = q;
+    html += `
+      <div class="question" data-answer="${answer}">
+        <h3>${qNum}. ${question}</h3>
+        <div class="options">
+          <label><input type="radio" name="q${qNum}" value="a"> ${a}</label>
+          <label><input type="radio" name="q${qNum}" value="b"> ${b}</label>
+          <label><input type="radio" name="q${qNum}" value="c"> ${c}</label>
+          <label><input type="radio" name="q${qNum}" value="d"> ${d}</label>
+        </div>
+        <div class="feedback" id="feedback${qNum}"></div>
+      </div>
+    `;
+  });
+
+  document.write(html);
+</script>
+
+      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit</button>
+      <a href="QuizzesPage.html">← Back to Quizzes</a>
+      <div id="result"></div>
+    </form>
+  </div>
+
+  <script>
+    function submitQuiz() {
+      let score = 0;
+      const totalQuestions = 20;
+
+      for (let i = 1; i <= totalQuestions; i++) {
+        const question = document.querySelector(`.question:nth-of-type(${i})`);
+        const correctAnswer = question.getAttribute('data-answer');
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        const feedback = document.getElementById(`feedback${i}`);
+
+        if (selected) {
+          if (selected.value === correctAnswer) {
+            feedback.textContent = "Correct!";
+            feedback.className = "feedback correct";
+            score++;
+          } else {
+            feedback.textContent = "Incorrect.";
+            feedback.className = "feedback incorrect";
+          }
+        } else {
+          feedback.textContent = "No answer selected.";
+          feedback.className = "feedback incorrect";
+        }
+      }
+
+      document.getElementById('result').textContent = `You scored ${score} out of ${totalQuestions}`;
+    }
+  </script>
+
+</body>
+</html>

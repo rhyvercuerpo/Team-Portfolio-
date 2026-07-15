@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Women and Education</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #fdf6f9;
+      color: #333;
+      padding: 20px;
+      margin: 0;
+    }
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
+      background: #ffe3ec;
+      border-bottom: 5px solid #f48fb1;
+    }
+    header h1 {
+      font-size: 2em;
+      color: #ad1457;
+      margin: 0;
+    }
+    .quiz-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 25px;
+      background: #fff0f5;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    .question {
+      margin-bottom: 30px;
+    }
+    .question h3 {
+      color: #6a1b9a;
+      margin-bottom: 10px;  
+      font-weight: 600;
+    }
+    .options label {
+      display: block;
+      margin: 10px 0;
+      padding: 10px 15px;
+      background: #fce4ec;
+      border-radius: 10px;
+      border: 1px solid #f8bbd0;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .options label:hover {
+      background-color: #f8bbd0;
+    }
+    .options input[type="radio"] {
+      margin-right: 10px;
+    }
+    #submitBtn {
+      background-color: #f06292;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      font-size: 1em;
+      font-weight: 600;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+      display: block;
+      margin: 30px auto 10px;
+    }
+    #submitBtn:hover {
+      background-color: #ec407a;
+    }
+     a {
+    text-align: center;
+    display: block;
+    color: #7b1fa2;
+    text-decoration: none;
+    margin-top: 15px;
+  }
+
+    .feedback {
+      font-weight: bold;
+      margin-top: 8px;
+      padding-left: 5px;
+    }
+    .correct {
+      color: #388e3c;
+    }
+    .incorrect {
+      color: #d32f2f;
+    }
+    #result {
+      text-align: center;
+      font-size: 1.4em;
+      margin-top: 30px;
+      padding: 10px;
+      background-color: #f3e5f5;
+      border-radius: 12px;
+      color: #4a148c;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Women and Education Quiz</h1>
+  </header>
+
+  <div class="quiz-container">
+    <form id="quizForm">
+     
+<script>
+  const questions = [
+    ["What is a major barrier to education for women in rural areas?", "Urban migration", "Early marriage", "Access to the internet", "Private school fees", "b"],
+    ["Which level of education has the highest female participation in the Philippines?", "Elementary", "Secondary", "Tertiary", "Vocational", "c"],
+    ["Gender disparity in education often leads to:", "Improved health outcomes", "Economic inequality", "Decrease in population", "Less household conflict", "b"],
+    ["Which of the following encourages women's education?", "Patriarchal values", "Gender-based violence", "Scholarship programs", "Early pregnancy", "c"],
+    ["RA 10931 provides:", "Tax exemption for mothers", "Free tuition in state colleges", "Women's employment rights", "Marriage counseling", "b"],
+    ["Female drop-out rates are most influenced by:", "Low grades", "Peer pressure", "Teenage pregnancy", "Bullying", "c"],
+    ["A school curriculum that is gender-sensitive:", "Promotes equal learning opportunities", "Reinforces traditional gender roles", "Focuses on male students", "Avoids gender discussions", "a"],
+    ["Education for women contributes to:", "Higher unemployment", "Increased child mortality", "Social and economic development", "Reduced decision-making", "c"],
+    ["Which is a UNESCO advocacy for women?", "Increase military enrollment", "Promote girls' education", "Train only male teachers", "Gender-segregated schools", "b"],
+    ["What is 'gender parity' in education?", "More boys than girls", "Equal access for all genders", "Only boys attending", "Girls outperforming boys", "b"],
+    ["Which sector supports women’s literacy in indigenous groups?", "NGOs and government programs", "Private banks", "Military services", "Commercial corporations", "a"],
+    ["Inclusive education means:", "Limiting access based on ability", "Teaching only boys", "Valuing diversity and participation", "Offering online classes only", "c"],
+    ["Dropout rates for girls are highest at what age range?", "6-8", "12-17", "18-21", "22+", "b"],
+    ["A feminist view on education emphasizes:", "Male leadership", "Equal opportunity and empowerment", "Discipline and obedience", "Patriotic values", "b"],
+    ["Gender roles in textbooks often show:", "Equal roles", "Stereotypical domestic roles for women", "Women in leadership", "Men as caregivers", "b"],
+    ["Which agency monitors gender equality in education?", "NBI", "CHED and DepEd", "DOH", "BIR", "b"],
+    ["What discourages rural girls from attending school?", "Extracurricular clubs", "School meals", "Distance and transport issues", "Science labs", "c"],
+    ["Literacy improves women's ability to:", "Depend on spouses", "Be submissive", "Make informed decisions", "Avoid employment", "c"],
+    ["What can schools do to improve girls' retention?", "Enforce silence", "Provide safe and inclusive spaces", "Reduce curriculum", "Ban sports", "b"],
+    ["Why is women's education crucial for society?", "To manage households", "To empower communities and future generations", "To marry early", "To prevent social media use", "b"]
+  ];
+
+  let html = '';
+  questions.forEach((q, i) => {
+    const qNum = i + 1;
+    const [question, a, b, c, d, answer] = q;
+    html += `
+      <div class="question" data-answer="${answer}">
+        <h3>${qNum}. ${question}</h3>
+        <div class="options">
+          <label><input type="radio" name="q${qNum}" value="a"> ${a}</label>
+          <label><input type="radio" name="q${qNum}" value="b"> ${b}</label>
+          <label><input type="radio" name="q${qNum}" value="c"> ${c}</label>
+          <label><input type="radio" name="q${qNum}" value="d"> ${d}</label>
+        </div>
+        <div class="feedback" id="feedback${qNum}"></div>
+      </div>
+    `;
+  });
+
+  document.write(html);
+</script>
+
+      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit</button>
+      <a href="QuizzesPage.html">← Back to Home page</a>
+      <div id="result"></div>
+    </form>
+  </div>
+
+  <script>
+    function submitQuiz() {
+      let score = 0;
+      const totalQuestions = 20;
+
+      for (let i = 1; i <= totalQuestions; i++) {
+        const question = document.querySelector(`.question:nth-of-type(${i})`);
+        const correctAnswer = question.getAttribute('data-answer');
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        const feedback = document.getElementById(`feedback${i}`);
+
+        if (selected) {
+          if (selected.value === correctAnswer) {
+            feedback.textContent = "Correct!";
+            feedback.className = "feedback correct";
+            score++;
+          } else {
+            feedback.textContent = "Incorrect.";
+            feedback.className = "feedback incorrect";
+          }
+        } else {
+          feedback.textContent = "No answer selected.";
+          feedback.className = "feedback incorrect";
+        }
+      }
+
+      document.getElementById('result').textContent = `You scored ${score} out of ${totalQuestions}`;
+    }
+  </script>
+
+</body>
+</html>

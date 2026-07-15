@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Women and Employment</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #fdf6f9;
+      color: #333;
+      padding: 20px;
+      margin: 0;
+    }
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
+      background: #ffe3ec;
+      border-bottom: 5px solid #f48fb1;
+    }
+    header h1 {
+      font-size: 2em;
+      color: #ad1457;
+      margin: 0;
+    }
+    .quiz-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 25px;
+      background: #fff0f5;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    .question {
+      margin-bottom: 30px;
+    }
+    .question h3 {
+      color: #6a1b9a;
+      margin-bottom: 10px;  
+      font-weight: 600;
+    }
+    .options label {
+      display: block;
+      margin: 10px 0;
+      padding: 10px 15px;
+      background: #fce4ec;
+      border-radius: 10px;
+      border: 1px solid #f8bbd0;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .options label:hover {
+      background-color: #f8bbd0;
+    }
+    .options input[type="radio"] {
+      margin-right: 10px;
+    }
+    #submitBtn {
+      background-color: #f06292;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      font-size: 1em;
+      font-weight: 600;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+      display: block;
+      margin: 30px auto 10px;
+    }
+    #submitBtn:hover {
+      background-color: #ec407a;
+    }
+     a {
+    text-align: center;
+    display: block;
+    color: #7b1fa2;
+    text-decoration: none;
+    margin-top: 15px;
+  }
+
+    .feedback {
+      font-weight: bold;
+      margin-top: 8px;
+      padding-left: 5px;
+    }
+    .correct {
+      color: #388e3c;
+    }
+    .incorrect {
+      color: #d32f2f;
+    }
+    #result {
+      text-align: center;
+      font-size: 1.4em;
+      margin-top: 30px;
+      padding: 10px;
+      background-color: #f3e5f5;
+      border-radius: 12px;
+      color: #4a148c;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Women and Employment Quiz</h1>
+  </header>
+
+  <div class="quiz-container">
+    <form id="quizForm">
+     
+<script>
+  const questions = [
+    ["What is a common barrier that limits women’s access to employment opportunities?", "High inflation", "Gender discrimination", "Free trade", "Equal pay laws", "b"],
+    ["What is the term for the invisible barrier that prevents women from advancing to top positions?", "Gender gap", "Sticky floor", "Glass ceiling", "Wage cliff", "c"],
+    ["Women’s work is often undervalued because it is associated with:", "High productivity", "Emotional intelligence", "Domestic and caregiving roles", "Economic independence", "c"],
+    ["Which law ensures equal pay for equal work in the Philippines?", "RA 9262", "RA 11313", "Labor Code of the Philippines", "Anti-Rape Law", "c"],
+    ["What is the term for informal employment typically lacking job security and benefits?", "Contractual work", "Freelance work", "Precarious employment", "Tenured labor", "c"],
+    ["A common form of gender bias in hiring is:", "Objective testing", "Blind resume review", "Stereotyping based on physical appearance", "Equal opportunity policy", "c"],
+    ["What global framework promotes gender equality in employment?", "GATT", "UN Sustainable Development Goals", "ASEAN Charter", "Bretton Woods Agreement", "b"],
+    ["What sector in the Philippines sees high participation of women but low pay and benefits?", "Agriculture", "Mining", "Service sector", "Construction", "c"],
+    ["Which of the following is a right granted to working mothers in the Philippines?", "30-day paternity leave", "Night shift exemption", "Maternity leave", "Tax exemption", "c"],
+    ["One reason for the wage gap between men and women is:", "Differences in ability", "Unequal access to education", "Occupational segregation", "Corporate taxes", "c"],
+    ["The term “feminization of labor” refers to:", "More women joining elite professions", "Rise in female-dominated management", "Increased female participation in low-wage, flexible jobs", "Women forming labor unions", "c"],
+    ["Which economic system often exacerbates gender inequality in employment?", "Socialism", "Capitalism", "Feudalism", "Communitarianism", "b"],
+    ["An example of a workplace policy supporting gender equity is:", "Dress codes", "Gender quotas in hiring", "Sales bonuses", "Flexible lunch breaks", "b"],
+    ["A positive impact of women’s employment is:", "Economic dependence", "Greater household income", "Isolation from family", "Reduced labor supply", "b"],
+    ["What is the term for unpaid work done to help family businesses?", "Home-based employment", "Informal labor", "Contributory family work", "Part-time labor", "c"],
+    ["A major challenge for women balancing work and family is:", "Job inflation", "Lack of elder care", "Limited work-life balance", "Technology overload", "c"],
+    ["One result of labor migration among Filipino women is:", "Fewer remittances", "Increased job security", "Transnational motherhood", "Workplace violence", "c"],
+    ["What is one goal of gender mainstreaming in the workplace?", "Reduce taxes", "Promote women-only industries", "Integrate gender perspectives into all policies", "Eliminate male jobs", "c"],
+    ["Domestic helpers often face vulnerability due to:", "Work-from-home setups", "Clear contracts", "Weak labor protections", "Government pensions", "c"],
+    ["Which international organization supports labor rights including gender equity?", "IMF", "ILO (International Labour Organization)", "WTO", "ADB", "b"]
+  ];
+
+  let html = '';
+  questions.forEach((q, i) => {
+    const qNum = i + 1;
+    const [question, a, b, c, d, answer] = q;
+    html += `
+      <div class="question" data-answer="${answer}">
+        <h3>${qNum}. ${question}</h3>
+        <div class="options">
+          <label><input type="radio" name="q${qNum}" value="a"> ${a}</label>
+          <label><input type="radio" name="q${qNum}" value="b"> ${b}</label>
+          <label><input type="radio" name="q${qNum}" value="c"> ${c}</label>
+          <label><input type="radio" name="q${qNum}" value="d"> ${d}</label>
+        </div>
+        <div class="feedback" id="feedback${qNum}"></div>
+      </div>
+    `;
+  });
+
+  document.write(html);
+</script>
+
+      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit</button>
+      <a href="QuizzesPage.html">← Back to Home page</a>
+      <div id="result"></div>
+    </form>
+  </div>
+
+  <script>
+    function submitQuiz() {
+      let score = 0;
+      const totalQuestions = 20;
+
+      for (let i = 1; i <= totalQuestions; i++) {
+        const question = document.querySelector(`.question:nth-of-type(${i})`);
+        const correctAnswer = question.getAttribute('data-answer');
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        const feedback = document.getElementById(`feedback${i}`);
+
+        if (selected) {
+          if (selected.value === correctAnswer) {
+            feedback.textContent = "Correct!";
+            feedback.className = "feedback correct";
+            score++;
+          } else {
+            feedback.textContent = "Incorrect.";
+            feedback.className = "feedback incorrect";
+          }
+        } else {
+          feedback.textContent = "No answer selected.";
+          feedback.className = "feedback incorrect";
+        }
+      }
+
+      document.getElementById('result').textContent = `You scored ${score} out of ${totalQuestions}`;
+    }
+  </script>
+
+</body>
+</html>

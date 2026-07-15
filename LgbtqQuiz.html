@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>  LGBTQ Psychology: SOGIE Equality Bill  </title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #fdf6f9;
+      color: #333;
+      padding: 20px;
+      margin: 0;
+    }
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
+      background: #ffe3ec;
+      border-bottom: 5px solid #f48fb1;
+    }
+    header h1 {
+      font-size: 2em;
+      color: #ad1457;
+      margin: 0;
+    }
+    .quiz-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 25px;
+      background: #fff0f5;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    .question {
+      margin-bottom: 30px;
+    }
+    .question h3 {
+      color: #6a1b9a;
+      margin-bottom: 10px;  
+      font-weight: 600;
+    }
+    .options label {
+      display: block;
+      margin: 10px 0;
+      padding: 10px 15px;
+      background: #fce4ec;
+      border-radius: 10px;
+      border: 1px solid #f8bbd0;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .options label:hover {
+      background-color: #f8bbd0;
+    }
+    .options input[type="radio"] {
+      margin-right: 10px;
+    }
+    #submitBtn {
+      background-color: #f06292;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      font-size: 1em;
+      font-weight: 600;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+      display: block;
+      margin: 30px auto 10px;
+    }
+    #submitBtn:hover {
+      background-color: #ec407a;
+    }
+     a {
+    text-align: center;
+    display: block;
+    color: #7b1fa2;
+    text-decoration: none;
+    margin-top: 15px;
+  }
+
+    .feedback {
+      font-weight: bold;
+      margin-top: 8px;
+      padding-left: 5px;
+    }
+    .correct {
+      color: #388e3c;
+    }
+    .incorrect {
+      color: #d32f2f;
+    }
+    #result {
+      text-align: center;
+      font-size: 1.4em;
+      margin-top: 30px;
+      padding: 10px;
+      background-color: #f3e5f5;
+      border-radius: 12px;
+      color: #4a148c;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1> LGBTQ Psychology: SOGIE Equality Bill Quiz   </h1>
+  </header>
+
+  <div class="quiz-container">
+    <form id="quizForm">
+     
+<script>
+  const questions = [
+    ["What does SOGIE stand for?",
+     "Sexual Orientation and Gender Identity Empowerment",
+     "Sexual Orientation and Gender Identity Expression",
+     "Society of Gender Integration and Equality",
+     "Sexuality and Gender in Education",
+     "b"],
+
+    ["The SOGIE Equality Bill is designed to protect individuals from:",
+     "Political discrimination",
+     "Economic instability",
+     "Discrimination based on gender identity and sexual orientation",
+     "Traffic violations",
+     "c"],
+
+    ["Which group is the primary beneficiary of the SOGIE Equality Bill?",
+     "Senior citizens",
+     "LGBTQ+ community",
+     "Farmers and laborers",
+     "Business owners",
+     "b"],
+
+    ["One major goal of the SOGIE Equality Bill is to:",
+     "Legalize same-sex marriage",
+     "Criminalize religious practices",
+     "End discrimination in employment, education, and public services",
+     "Remove gender markers in documents",
+     "c"],
+
+    ["Which of the following is considered discrimination under the SOGIE Bill?",
+     "Offering promotions based on merit",
+     "Refusing entry to a trans woman in a women’s restroom",
+     "Providing gender sensitivity training",
+     "Supporting a candidate regardless of gender",
+     "b"],
+
+    ["The SOGIE Bill protects individuals regardless of their:",
+     "Age or religion",
+     "Educational background",
+     "Sexual orientation and gender identity/expression",
+     "Political affiliation",
+     "c"],
+
+    ["Which of the following is a form of gender identity?",
+     "Bisexual",
+     "Female",
+     "Gay",
+     "Lesbian",
+     "b"],
+
+    ["Who can be protected by the SOGIE Bill?",
+     "Only those who identify as LGBTQ+",
+     "Only transgender individuals",
+     "Everyone, regardless of SOGIE",
+     "Only adults",
+     "c"],
+
+    ["Which of the following is NOT part of the LGBTQ+ acronym?",
+     "Lesbian",
+     "Gay",
+     "Bisexual",
+     "Heterosexual",
+     "d"],
+
+    ["The bill prohibits discriminatory practices in which of the following areas?",
+     "Public spaces",
+     "Workplaces",
+     "Educational institutions",
+     "All of the above",
+     "d"],
+
+    ["When was the SOGIE Equality Bill first proposed in the Philippines?",
+     "2000",
+     "2010",
+     "2006",
+     "2015",
+     "c"],
+
+    ["Why has the SOGIE Bill faced opposition?",
+     "It promotes violence",
+     "It lacks support from the youth",
+     "Some groups fear it violates religious beliefs",
+     "It reduces worker salaries",
+     "c"],
+
+    ["What does gender expression refer to?",
+     "A person’s biological sex",
+     "How one expresses their gender through appearance and behavior",
+     "Sexual attraction",
+     "Marital status",
+     "b"],
+
+    ["Which is an example of sexual orientation?",
+     "Wearing makeup",
+     "Identifying as a woman",
+     "Being attracted to the same sex",
+     "Dressing in masculine clothing",
+     "c"],
+
+    ["What does the SOGIE Bill say about educational institutions?",
+     "They must offer free education",
+     "They can discriminate based on gender",
+     "They must treat students equally regardless of SOGIE",
+     "They should segregate LGBTQ students",
+     "c"],
+
+    ["Can a heterosexual person be protected under the SOGIE Equality Bill?",
+     "No",
+     "Yes",
+     "Only if they support LGBTQ+",
+     "Only in marriage",
+     "b"],
+
+    ["Which sector plays a vital role in advancing SOGIE awareness?",
+     "Military",
+     "Religious",
+     "Media and education",
+     "Agriculture",
+     "c"],
+
+    ["What kind of law is the SOGIE Equality Bill classified as?",
+     "Environmental law",
+     "Criminal law",
+     "Anti-discrimination law",
+     "Immigration law",
+     "c"],
+
+    ["What is a common misconception about the SOGIE Bill?",
+     "It applies only to LGBTQ+",
+     "It legalizes same-sex marriage",
+     "It supports education rights",
+     "It promotes family values",
+     "b"],
+
+    ["What is the current status of the SOGIE Bill in the Philippine legislature (as of recent years)?",
+     "Passed into law",
+     "Vetoed by the president",
+     "Still pending approval",
+     "Removed from Congress",
+     "c"]
+  ];
+
+  let html = '';
+  questions.forEach((q, i) => {
+    const qNum = i + 1;
+    const [question, a, b, c, d, answer] = q;
+    html += `
+      <div class="question" data-answer="${answer}">
+        <h3>${qNum}. ${question}</h3>
+        <div class="options">
+          <label><input type="radio" name="q${qNum}" value="a"> ${a}</label>
+          <label><input type="radio" name="q${qNum}" value="b"> ${b}</label>
+          <label><input type="radio" name="q${qNum}" value="c"> ${c}</label>
+          <label><input type="radio" name="q${qNum}" value="d"> ${d}</label>
+        </div>
+        <div class="feedback" id="feedback${qNum}"></div>
+      </div>
+    `;
+  });
+
+  document.write(html);
+</script>
+
+      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit</button>
+      <a href="QuizzesPage.html">← Back to Quizzes</a>
+      <div id="result"></div>
+    </form>
+  </div>
+
+  <script>
+    function submitQuiz() {
+      let score = 0;
+      const totalQuestions = 20;
+
+      for (let i = 1; i <= totalQuestions; i++) {
+        const question = document.querySelector(`.question:nth-of-type(${i})`);
+        const correctAnswer = question.getAttribute('data-answer');
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        const feedback = document.getElementById(`feedback${i}`);
+
+        if (selected) {
+          if (selected.value === correctAnswer) {
+            feedback.textContent = "Correct!";
+            feedback.className = "feedback correct";
+            score++;
+          } else {
+            feedback.textContent = "Incorrect.";
+            feedback.className = "feedback incorrect";
+          }
+        } else {
+          feedback.textContent = "No answer selected.";
+          feedback.className = "feedback incorrect";
+        }
+      }
+
+      document.getElementById('result').textContent = `You scored ${score} out of ${totalQuestions}`;
+    }
+  </script>
+
+</body>
+</html>

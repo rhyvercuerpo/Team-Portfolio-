@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Choose a Quiz - GED</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" />
+    <style>
+        body {
+            font-family: 'Montserrat', Arial, sans-serif;
+            background: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+            padding: 32px 24px;
+        }
+        h1 {
+            text-align: center;
+            color: #8A2BE2;
+            margin-bottom: 32px;
+        }
+        .quiz-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 28px;
+        }
+        .quiz-card {
+            background: #f3f0fa;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(138,43,226,0.07);
+            padding: 24px 12px 16px 12px;
+            text-align: center;
+            transition: box-shadow 0.2s, transform 0.2s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .quiz-card:hover {
+            box-shadow: 0 6px 24px rgba(138,43,226,0.13);
+            border-color: #8A2BE2;
+            transform: translateY(-4px) scale(1.03);
+        }
+        .quiz-icon {
+            font-size: 2.5rem;
+            color: #8A2BE2;
+            margin-bottom: 12px;
+        }
+        .quiz-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+        .quiz-link {
+            text-decoration: none;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 16px 4px;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Choose a Quiz to Test Your Understanding</h1>
+        <div class="quiz-grid">
+            <a href="AntiSexualHarassmentActQuiz.html" class="quiz-link">
+                <div class="quiz-card">
+                    <i class="ri-shield-user-line quiz-icon"></i>
+                    <div class="quiz-title">Anti-Sexual Harassment Act</div>
+                </div>
+            </a>
+            <a href="GenderAndSexQuiz.html" class="quiz-link">
+                <div class="quiz-card">
+                    <i class="ri-genderless-line quiz-icon"></i>
+                    <div class="quiz-title">Gender and Sex</div>
+                </div>
+            </a>
+            <a href="GenderAndSocializationQuiz.html" class="quiz-link">
+                <div class="quiz-card">
+                    <i class="ri-group-line quiz-icon"></i>
+                    <div class="quiz-title">Gender and Socialization</div>
+                </div>
+            </a>
+            <a href="GenderBaseViolenceQuiz.html" class="quiz-link">
+                <div class="quiz-card">
+                    <i class="ri-empathize-line quiz-icon"></i>
+                    <div class="quiz-title">Gender-Based Violence</div>
+                </div>
+            </a>
+            <a href="GenderSubordinationQuiz.html" class="quiz-link">
+                <div class="quiz-card">
+                    <i class="ri-arrow-down-line quiz-icon"></i>
+                    <div class="quiz-title">Gender Subordination</div>
+                </div>
+            </a>
+            <a href="LgbtqQuiz.html" class="quiz-link">
+                <div class="quiz-card">
+                    <i class="ri-rainbow-line quiz-icon"></i>
+                    <div class="quiz-title">LGBTQ+</div>
+                </div>
+            </a>
+            <a href="RA8353Quiz.html" class="quiz-link">
+                <div class="quiz-card">
+                    <i class="ri-file-list-3-line quiz-icon"></i>
+                    <div class="quiz-title">RA 8353</div>
+                </div>
+            </a>
+            <a href="RA9262Quiz.html" class="quiz-link">
+                <div class="quiz-card">
+                    <i class="ri-file-list-2-line quiz-icon"></i>
+                    <div class="quiz-title">RA 9262</div>
+                </div>
+            </a>
+            <a href="TheoriticalAnalysisOfGenderQuiz.html" class="quiz-link">
+                <div class="quiz-card">
+                    <i class="ri-lightbulb-flash-line quiz-icon"></i>
+                    <div class="quiz-title">Theoretical Analysis of Gender</div>
+                </div>
+            </a>
+            <a href="WomenAndEducation.html" class="quiz-link">
+                <div class="quiz-card">
+                    <i class="ri-book-open-line quiz-icon"></i>
+                    <div class="quiz-title">Women and Education</div>
+                </div>
+            </a>
+            <a href="WomenAndEmployment.html" class="quiz-link">
+                <div class="quiz-card">
+                    <i class="ri-briefcase-4-line quiz-icon"></i>
+                    <div class="quiz-title">Women and Employment</div>
+                </div>
+            </a>
+            <a href="WomenAndHealthQuiz.html" class="quiz-link">
+                <div class="quiz-card">
+                    <i class="ri-heart-pulse-line quiz-icon"></i>
+                    <div class="quiz-title">Women and Health</div>
+                </div>
+            </a>
+            <a href="WomenAndPopulationQuiz.html" class="quiz-link">
+                <div class="quiz-card">
+                    <i class="ri-user-add-line quiz-icon"></i>
+                    <div class="quiz-title">Women and Population</div>
+                </div>
+            </a>
+            <a href="WomenAndPublicLife.html" class="quiz-link">
+                <div class="quiz-card">
+                    <i class="ri-government-line quiz-icon"></i>
+                    <div class="quiz-title">Women and Public Life</div>
+                </div>
+            </a>
+            <a href="WomenFamiliesAndHouseholdQuiz.html" class="quiz-link">
+                <div class="quiz-card">
+                    <i class="ri-home-3-line quiz-icon"></i>
+                    <div class="quiz-title">Women, Families & Household</div>
+                </div>
+            </a>
+            <a href="WomenInMindanaoQuiz.html" class="quiz-link">
+                <div class="quiz-card">
+                    <i class="ri-map-pin-line quiz-icon"></i>
+                    <div class="quiz-title">Women in Mindanao</div>
+                </div>
+            </a>
+        </div>
+        <br><div class="mt-12 text-center">
+  <a href="website2.html" class="text-blue-600 hover:underline">
+    ← Back to Home
+  </a>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Women Families and Household Quiz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #fdf6f9;
+      color: #333;
+      padding: 20px;
+      margin: 0;
+    }
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
+      background: #ffe3ec;
+      border-bottom: 5px solid #f48fb1;
+    }
+    header h1 {
+      font-size: 2em;
+      color: #ad1457;
+      margin: 0;
+    }
+    .quiz-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 25px;
+      background: #fff0f5;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    .question {
+      margin-bottom: 30px;
+    }
+    .question h3 {
+      color: #6a1b9a;
+      margin-bottom: 10px;  
+      font-weight: 600;
+    }
+    .options label {
+      display: block;
+      margin: 10px 0;
+      padding: 10px 15px;
+      background: #fce4ec;
+      border-radius: 10px;
+      border: 1px solid #f8bbd0;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .options label:hover {
+      background-color: #f8bbd0;
+    }
+    .options input[type="radio"] {
+      margin-right: 10px;
+    }
+    #submitBtn {
+      background-color: #f06292;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      font-size: 1em;
+      font-weight: 600;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+      display: block;
+      margin: 30px auto 10px;
+    }
+    #submitBtn:hover {
+      background-color: #ec407a;
+    }
+     a {
+    text-align: center;
+    display: block;
+    color: #7b1fa2;
+    text-decoration: none;
+    margin-top: 15px;
+  }
+
+    .feedback {
+      font-weight: bold;
+      margin-top: 8px;
+      padding-left: 5px;
+    }
+    .correct {
+      color: #388e3c;
+    }
+    .incorrect {
+      color: #d32f2f;
+    }
+    #result {
+      text-align: center;
+      font-size: 1.4em;
+      margin-top: 30px;
+      padding: 10px;
+      background-color: #f3e5f5;
+      border-radius: 12px;
+      color: #4a148c;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Women Families and Household Quiz</h1>
+  </header>
+
+  <div class="quiz-container">
+    <form id="quizForm">
+     
+  <script>
+  const questions = [
+    ["What is the traditional role assigned to women in many Filipino households?", "Breadwinner", "Political leader", "Homemaker", "Chief negotiator", "c"],
+    ["What concept refers to family members sharing power and responsibilities equally?", "Patriarchy", "Matriarchy", "Egalitarian family", "Authoritarian family", "c"],
+    ["The family type composed of parents and their children is known as:", "Extended family", "Nuclear family", "Clan", "Patriarchal family", "b"],
+    ["In Filipino culture, utang na loob is a value often reinforced within:", "Schools", "Families", "Workplaces", "Courts", "b"],
+    ["What household duty is most often associated with women in Filipino society?", "Car repairs", "Childcare", "Hunting", "Political organizing", "b"],
+    ["The term double burden refers to:", "Women working two jobs", "Women carrying household and caregiving responsibilities alongside paid work", "Men managing family finances", "Children supporting parents", "b"],
+    ["What policy supports women’s roles in family planning in the Philippines?", "Magna Carta for Women", "RH Law (Reproductive Health Law)", "Safe Spaces Act", "Divorce Law", "b"],
+    ["In Filipino families, the ilaw ng tahanan metaphor refers to the:", "Father", "Breadwinner", "Grandmother", "Mother", "d"],
+    ["Which of the following is a barrier to women’s full participation in family decision-making?", "Internet access", "Patriarchal norms", "High education", "Family planning seminars", "b"],
+    ["The practice of assigning domestic duties based on gender is known as:", "Gender equality", "Gender bias", "Meritocracy", "Social democracy", "b"],
+    ["Which theory explains how family roles are learned through social interaction?", "Conflict theory", "Functionalism", "Symbolic interactionism", "Feminist theory", "c"],
+    ["Which law protects women from domestic violence in the household?", "RA 7877", "RA 8353", "RA 9262", "RA 11313", "c"],
+    ["What is a common justification used for unequal division of household labor?", "Gender stereotypes", "Equal rights", "Household surveys", "Income parity", "a"],
+    ["In traditional Filipino settings, male dominance in families is rooted in:", "Feminism", "Religious customs", "Matriarchal leadership", "Economic empowerment", "b"],
+    ["What term describes unpaid household work mostly done by women?", "Freelance work", "Invisible labor", "Contractual work", "Time-bound labor", "b"],
+    ["Which feminist concept argues for the recognition of unpaid domestic labor in economic measures?", "Ecofeminism", "Marxist feminism", "Radical feminism", "Liberal feminism", "b"],
+    ["A family structure with extended kin living together is called a:", "Matrilineal unit", "Nuclear unit", "Extended family", "Non-conjugal group", "c"],
+    ["What is a key issue faced by solo mothers in Filipino households?", "Political instability", "Job outsourcing", "Lack of state support", "Multiple marriages", "c"],
+    ["What is care work?", "Paid teaching work", "Volunteer religious services", "Emotional and physical labor in caregiving", "Freelance office work", "c"],
+    ["The role of women in household budgeting is typically:", "Passive", "Symbolic", "Central", "Minimal", "c"]
+  ];
+
+  let html = '';
+  questions.forEach((q, i) => {
+    const qNum = i + 1;
+    const [question, a, b, c, d, answer] = q;
+    html += `
+      <div class="question" data-answer="${answer}">
+        <h3>${qNum}. ${question}</h3>
+        <div class="options">
+          <label><input type="radio" name="q${qNum}" value="a"> ${a}</label>
+          <label><input type="radio" name="q${qNum}" value="b"> ${b}</label>
+          <label><input type="radio" name="q${qNum}" value="c"> ${c}</label>
+          <label><input type="radio" name="q${qNum}" value="d"> ${d}</label>
+        </div>
+        <div class="feedback" id="feedback${qNum}"></div>
+      </div>
+    `;
+  });
+
+  document.write(html);
+</script>
+
+      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit</button>
+      <a href="QuizzesPage.html">← Back to Quizzes</a>
+      <div id="result"></div>
+    </form>
+  </div>
+
+  <script>
+    function submitQuiz() {
+      let score = 0;
+      const totalQuestions = 20;
+
+      for (let i = 1; i <= totalQuestions; i++) {
+        const question = document.querySelector(`.question:nth-of-type(${i})`);
+        const correctAnswer = question.getAttribute('data-answer');
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        const feedback = document.getElementById(`feedback${i}`);
+
+        if (selected) {
+          if (selected.value === correctAnswer) {
+            feedback.textContent = "Correct!";
+            feedback.className = "feedback correct";
+            score++;
+          } else {
+            feedback.textContent = "Incorrect.";
+            feedback.className = "feedback incorrect";
+          }
+        } else {
+          feedback.textContent = "No answer selected.";
+          feedback.className = "feedback incorrect";
+        }
+      }
+
+      document.getElementById('result').textContent = `You scored ${score} out of ${totalQuestions}`;
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Women and Population Quiz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #fdf6f9;
+      color: #333;
+      padding: 20px;
+      margin: 0;
+    }
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
+      background: #ffe3ec;
+      border-bottom: 5px solid #f48fb1;
+    }
+    header h1 {
+      font-size: 2em;
+      color: #ad1457;
+      margin: 0;
+    }
+    .quiz-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 25px;
+      background: #fff0f5;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    .question {
+      margin-bottom: 30px;
+    }
+    .question h3 {
+      color: #6a1b9a;
+      margin-bottom: 10px;  
+      font-weight: 600;
+    }
+    .options label {
+      display: block;
+      margin: 10px 0;
+      padding: 10px 15px;
+      background: #fce4ec;
+      border-radius: 10px;
+      border: 1px solid #f8bbd0;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .options label:hover {
+      background-color: #f8bbd0;
+    }
+    .options input[type="radio"] {
+      margin-right: 10px;
+    }
+    #submitBtn {
+      background-color: #f06292;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      font-size: 1em;
+      font-weight: 600;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+      display: block;
+      margin: 30px auto 10px;
+    }
+    #submitBtn:hover {
+      background-color: #ec407a;
+    }
+     a {
+    text-align: center;
+    display: block;
+    color: #7b1fa2;
+    text-decoration: none;
+    margin-top: 15px;
+  }
+
+    .feedback {
+      font-weight: bold;
+      margin-top: 8px;
+      padding-left: 5px;
+    }
+    .correct {
+      color: #388e3c;
+    }
+    .incorrect {
+      color: #d32f2f;
+    }
+    #result {
+      text-align: center;
+      font-size: 1.4em;
+      margin-top: 30px;
+      padding: 10px;
+      background-color: #f3e5f5;
+      border-radius: 12px;
+      color: #4a148c;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Women and Population Gender Quiz</h1>
+  </header>
+
+  <div class="quiz-container">
+    <form id="quizForm">
+     
+  <script>
+  const questions = [
+    ["What is a key issue linking women and population studies?", "Environmental conservation", "Reproductive health and rights", "Migration policies", "Education funding", "b"],
+    ["High fertility rates are often associated with:", "High education levels", "Gender equality", "Limited access to contraception", "Urbanization", "c"],
+    ["The ability of women to decide freely on the number and spacing of their children is called:", "Population control", "Social mobility", "Reproductive autonomy", "Demographic transition", "c"],
+    ["A demographic transition involves:", "Rising fertility and mortality", "Shifts from high to low birth and death rates", "Only decreasing death rates", "Random changes in population", "b"],
+    ["Family planning programs aim to:", "Increase population size", "Reduce education among women", "Provide access to contraception and reproductive health", "Limit women’s rights", "c"],
+    ["In many developing countries, limited education among women contributes to:", "Delayed marriage", "Higher fertility rates", "Equal workforce participation", "Low infant mortality", "b"],
+    ["The phrase 'feminization of poverty' refers to:", "Male dominance in poverty statistics", "The disproportionate number of women among the poor", "Equal economic opportunities", "Rich women becoming poor", "b"],
+    ["Women’s population issues often intersect with:", "Industrialization", "Media freedom", "Health, education, and economic participation", "Political campaigns", "c"],
+    ["Maternal mortality is a key concern in:", "Urban centers only", "Women's health and population policies", "Men's rights", "Tax systems", "b"],
+    ["Which international document affirms reproductive rights as human rights?", "Kyoto Protocol", "Geneva Convention", "International Conference on Population and Development (ICPD)", "NAFTA", "c"],
+    ["Access to contraception helps reduce:", "Education rates", "Unintended pregnancies and maternal deaths", "Gender awareness", "Marriage rates", "b"],
+    ["Teenage pregnancy is often linked to:", "High income", "Equal opportunity", "Lack of sex education", "Late marriages", "c"],
+    ["In many societies, women’s reproductive roles are:", "Secondary to economic roles", "Culturally emphasized over other identities", "Not discussed", "Ignored completely", "b"],
+    ["Women's empowerment in population policies focuses on:", "Encouraging early marriage", "Providing education and reproductive choices", "Restricting mobility", "Discouraging labor participation", "b"],
+    ["Gender-sensitive population programs consider:", "Only male needs", "Social, cultural, and economic realities faced by women", "Political ideologies", "Urban design", "b"],
+    ["One effect of empowering women through education is:", "Increased fertility rates", "Decreased autonomy", "Delayed childbirth and fewer children", "Early retirement", "c"],
+    ["Which region often faces the highest maternal mortality rates?", "Western Europe", "North America", "Sub-Saharan Africa", "East Asia", "c"],
+    ["The concept of 'population explosion' is closely linked to:", "Migration", "Industrialization", "High birth rates in developing countries", "Gender-neutral education", "c"],
+    ["What role do women’s organizations play in population issues?", "None", "Advocacy, education, and service provision", "Political campaigning only", "Immigration control", "b"],
+    ["One challenge in implementing population policies is:", "Overfunding", "Cultural resistance and gender norms", "Too much access to services", "Male opposition alone", "b"]
+  ];
+
+  let html = '';
+  questions.forEach((q, i) => {
+    const qNum = i + 1;
+    const [question, a, b, c, d, answer] = q;
+    html += `
+      <div class="question" data-answer="${answer}">
+        <h3>${qNum}. ${question}</h3>
+        <div class="options">
+          <label><input type="radio" name="q${qNum}" value="a"> ${a}</label>
+          <label><input type="radio" name="q${qNum}" value="b"> ${b}</label>
+          <label><input type="radio" name="q${qNum}" value="c"> ${c}</label>
+          <label><input type="radio" name="q${qNum}" value="d"> ${d}</label>
+        </div>
+        <div class="feedback" id="feedback${qNum}"></div>
+      </div>
+    `;
+  });
+
+  document.write(html);
+</script>
+
+
+
+
+      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit</button>
+      <a href="QuizzesPage.html">← Back to Quizzes</a>
+      <div id="result"></div>
+    </form>
+  </div>
+
+  <script>
+    function submitQuiz() {
+      let score = 0;
+      const totalQuestions = 20;
+
+      for (let i = 1; i <= totalQuestions; i++) {
+        const question = document.querySelector(`.question:nth-of-type(${i})`);
+        const correctAnswer = question.getAttribute('data-answer');
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        const feedback = document.getElementById(`feedback${i}`);
+
+        if (selected) {
+          if (selected.value === correctAnswer) {
+            feedback.textContent = "Correct!";
+            feedback.className = "feedback correct";
+            score++;
+          } else {
+            feedback.textContent = "Incorrect.";
+            feedback.className = "feedback incorrect";
+          }
+        } else {
+          feedback.textContent = "No answer selected.";
+          feedback.className = "feedback incorrect";
+        }
+      }
+
+      document.getElementById('result').textContent = `You scored ${score} out of ${totalQuestions}`;
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title> Women in Mindanao </title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #fdf6f9;
+      color: #333;
+      padding: 20px;
+      margin: 0;
+    }
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
+      background: #ffe3ec;
+      border-bottom: 5px solid #f48fb1;
+    }
+    header h1 {
+      font-size: 2em;
+      color: #ad1457;
+      margin: 0;
+    }
+    .quiz-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 25px;
+      background: #fff0f5;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    .question {
+      margin-bottom: 30px;
+    }
+    .question h3 {
+      color: #6a1b9a;
+      margin-bottom: 10px;  
+      font-weight: 600;
+    }
+    .options label {
+      display: block;
+      margin: 10px 0;
+      padding: 10px 15px;
+      background: #fce4ec;
+      border-radius: 10px;
+      border: 1px solid #f8bbd0;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .options label:hover {
+      background-color: #f8bbd0;
+    }
+    .options input[type="radio"] {
+      margin-right: 10px;
+    }
+    #submitBtn {
+      background-color: #f06292;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      font-size: 1em;
+      font-weight: 600;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+      display: block;
+      margin: 30px auto 10px;
+    }
+    #submitBtn:hover {
+      background-color: #ec407a;
+    }
+     a {
+    text-align: center;
+    display: block;
+    color: #7b1fa2;
+    text-decoration: none;
+    margin-top: 15px;
+  }
+
+    .feedback {
+      font-weight: bold;
+      margin-top: 8px;
+      padding-left: 5px;
+    }
+    .correct {
+      color: #388e3c;
+    }
+    .incorrect {
+      color: #d32f2f;
+    }
+    #result {
+      text-align: center;
+      font-size: 1.4em;
+      margin-top: 30px;
+      padding: 10px;
+      background-color: #f3e5f5;
+      border-radius: 12px;
+      color: #4a148c;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1> Women in Mindanao Quiz </h1>
+  </header>
+
+  <div class="quiz-container">
+    <form id="quizForm">
+     
+<script>
+  const questions = [
+    ["What is one of the major challenges faced by women in Mindanao?",
+     "Excessive wealth",
+     "Overrepresentation in politics",
+     "Armed conflict and displacement",
+     "Lack of cultural diversity",
+     "c"],
+
+    ["Which region in Mindanao has been most affected by conflict and has a high percentage of displaced women?",
+     "Davao Region",
+     "BARMM (Bangsamoro Autonomous Region in Muslim Mindanao)",
+     "Zamboanga Peninsula",
+     "SOCCSKSARGEN",
+     "b"],
+
+    ["The majority of women in rural Mindanao are engaged in:",
+     "IT industries",
+     "Agriculture and informal labor",
+     "Tourism",
+     "Politics",
+     "b"],
+
+    ["A key issue for women in Mindanao's conflict zones is:",
+     "Political dominance",
+     "Gender equality in sports",
+     "Gender-based violence and lack of legal protection",
+     "Equal access to airlines",
+     "c"],
+
+    ["The Bangsamoro Women Commission (BWC) was created to:",
+     "Monitor schools in Mindanao",
+     "Provide military aid",
+     "Promote gender equality in BARMM",
+     "Oversee religious conversion",
+     "c"],
+
+    ["One cultural factor affecting women’s roles in Mindanao is:",
+     "National cinema",
+     "Traditional gender roles and patriarchal structures",
+     "Widespread atheism",
+     "Tourism marketing",
+     "b"],
+
+    ["Which law provides a framework for recognizing the role of women in peacebuilding in Mindanao?",
+     "RA 9710 (Magna Carta of Women)",
+     "RA 9165",
+     "RA 7277",
+     "RA 9003",
+     "a"],
+
+    ["What is a major economic barrier for women in Mindanao?",
+     "Too much access to jobs",
+     "Lack of natural resources",
+     "Limited access to land ownership and credit",
+     "High inflation",
+     "c"],
+
+    ["What is a peace-related role often played by women in Mindanao communities?",
+     "Commanding armed troops",
+     "Organizing grassroots peace talks",
+     "Joining paramilitary forces",
+     "Enforcing martial law",
+     "b"],
+
+    ["Education for girls in some areas of Mindanao is affected by:",
+     "Lack of interest",
+     "Overcrowded universities",
+     "Cultural restrictions and displacement due to conflict",
+     "Too many scholarships",
+     "c"],
+
+    ["A key advocacy for women’s groups in Mindanao is:",
+     "Removal of gender in IDs",
+     "Promotion of women’s voices in governance and peacebuilding",
+     "Banning religious schools",
+     "Closing markets",
+     "b"],
+
+    ["In indigenous communities, women often act as:",
+     "Hunters",
+     "Warriors",
+     "Cultural and spiritual leaders",
+     "Military trainers",
+     "c"],
+
+    ["One effect of armed conflict on women in Mindanao is:",
+     "Increased education levels",
+     "More economic opportunities",
+     "Greater vulnerability to sexual violence",
+     "Unrestricted travel",
+     "c"],
+
+    ["Which international agenda supports women in conflict zones like Mindanao?",
+     "UN Agenda 2030",
+     "UN Security Council Resolution 1325",
+     "ASEAN Charter",
+     "WHO Global Plan",
+     "b"],
+
+    ["The implementation of gender and development (GAD) programs in Mindanao aims to:",
+     "Build dams",
+     "Promote gender-sensitive governance and planning",
+     "Train police officers",
+     "Import goods",
+     "b"],
+
+    ["What is a significant health issue among displaced women in Mindanao?",
+     "Tooth decay",
+     "Malnutrition and lack of maternal care",
+     "Eye infections",
+     "Lung cancer",
+     "b"],
+
+    ["How does poverty uniquely affect women in Mindanao?",
+     "It doesn't affect them",
+     "It leads to higher political representation",
+     "It forces them into unpaid or underpaid labor",
+     "It increases their use of credit cards",
+     "c"],
+
+    ["Traditional Madrasah education in Mindanao sometimes limits:",
+     "Farming knowledge",
+     "Male literacy",
+     "Women's access to secular education",
+     "Political campaigning",
+     "c"],
+
+    ["The role of NGOs in supporting women in Mindanao includes:",
+     "Preventing education",
+     "Promoting militarization",
+     "Providing psychosocial and livelihood support",
+     "Organizing protests only",
+     "c"],
+
+    ["One success story of women empowerment in Mindanao is:",
+     "Women generals in the army",
+     "Women leading armed resistance",
+     "Women leading peace and development councils",
+     "Women monopolizing trade",
+     "c"]
+  ];
+
+  let html = '';
+  questions.forEach((q, i) => {
+    const qNum = i + 1;
+    const [question, a, b, c, d, answer] = q;
+    html += `
+      <div class="question" data-answer="${answer}">
+        <h3>${qNum}. ${question}</h3>
+        <div class="options">
+          <label><input type="radio" name="q${qNum}" value="a"> ${a}</label>
+          <label><input type="radio" name="q${qNum}" value="b"> ${b}</label>
+          <label><input type="radio" name="q${qNum}" value="c"> ${c}</label>
+          <label><input type="radio" name="q${qNum}" value="d"> ${d}</label>
+        </div>
+        <div class="feedback" id="feedback${qNum}"></div>
+      </div>
+    `;
+  });
+
+  document.write(html);
+</script>
+
+      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit</button>
+      <a href="QuizzesPage.html">← Back to Quizzes</a>
+      <div id="result"></div>
+    </form>
+  </div>
+
+  <script>
+    function submitQuiz() {
+      let score = 0;
+      const totalQuestions = 20;
+
+      for (let i = 1; i <= totalQuestions; i++) {
+        const question = document.querySelector(`.question:nth-of-type(${i})`);
+        const correctAnswer = question.getAttribute('data-answer');
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        const feedback = document.getElementById(`feedback${i}`);
+
+        if (selected) {
+          if (selected.value === correctAnswer) {
+            feedback.textContent = "Correct!";
+            feedback.className = "feedback correct";
+            score++;
+          } else {
+            feedback.textContent = "Incorrect.";
+            feedback.className = "feedback incorrect";
+          }
+        } else {
+          feedback.textContent = "No answer selected.";
+          feedback.className = "feedback incorrect";
+        }
+      }
+
+      document.getElementById('result').textContent = `You scored ${score} out of ${totalQuestions}`;
+    }
+  </script>
+
+</body>
+</html>

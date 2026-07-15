@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Women and Health</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #fdf6f9;
+      color: #333;
+      padding: 20px;
+      margin: 0;
+    }
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
+      background: #ffe3ec;
+      border-bottom: 5px solid #f48fb1;
+    }
+    header h1 {
+      font-size: 2em;
+      color: #ad1457;
+      margin: 0;
+    }
+    .quiz-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 25px;
+      background: #fff0f5;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    .question {
+      margin-bottom: 30px;
+    }
+    .question h3 {
+      color: #6a1b9a;
+      margin-bottom: 10px;  
+      font-weight: 600;
+    }
+    .options label {
+      display: block;
+      margin: 10px 0;
+      padding: 10px 15px;
+      background: #fce4ec;
+      border-radius: 10px;
+      border: 1px solid #f8bbd0;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .options label:hover {
+      background-color: #f8bbd0;
+    }
+    .options input[type="radio"] {
+      margin-right: 10px;
+    }
+    #submitBtn {
+      background-color: #f06292;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      font-size: 1em;
+      font-weight: 600;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+      display: block;
+      margin: 30px auto 10px;
+    }
+    #submitBtn:hover {
+      background-color: #ec407a;
+    }
+     a {
+    text-align: center;
+    display: block;
+    color: #7b1fa2;
+    text-decoration: none;
+    margin-top: 15px;
+  }
+
+    .feedback {
+      font-weight: bold;
+      margin-top: 8px;
+      padding-left: 5px;
+    }
+    .correct {
+      color: #388e3c;
+    }
+    .incorrect {
+      color: #d32f2f;
+    }
+    #result {
+      text-align: center;
+      font-size: 1.4em;
+      margin-top: 30px;
+      padding: 10px;
+      background-color: #f3e5f5;
+      border-radius: 12px;
+      color: #4a148c;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Women and Health Quiz</h1>
+  </header>
+
+  <div class="quiz-container">
+    <form id="quizForm">
+     
+<script>
+  const questions = [
+    ["Which health issue disproportionately affects women in the Philippines?", "Lung cancer", "Maternal mortality", "Dengue", "Malaria", "b"],
+    ["Which government agency oversees maternal health programs?", "DSWD", "Department of Health (DOH)", "DepEd", "NBI", "b"],
+    ["What is the primary cause of maternal death in the Philippines?", "Car accidents", "Tuberculosis", "Complications during childbirth", "Depression", "c"],
+    ["RA 10354 is also known as:", "Gender Equality Act", "Reproductive Health Law", "Women’s Suffrage Act", "Family Code", "b"],
+    ["Which factor can negatively affect women's mental health?", "Regular exercise", "Gender-based violence", "Proper nutrition", "Access to education", "b"],
+    ["Postpartum depression occurs:", "Before pregnancy", "After childbirth", "During menstruation", "After menopause", "b"],
+    ["One reproductive right of women is:", "Forced family planning", "Access to contraception", "Traditional marriage", "Abstinence only", "b"],
+    ["Which of the following is a service under the RH Law?", "Road safety training", "Pre-natal and post-natal care", "Weapon licensing", "Literacy programs", "b"],
+    ["What role do barangay health centers play?", "Police surveillance", "Providing community health services", "Collecting taxes", "Issuing IDs", "b"],
+    ["Breast cancer awareness aims to:", "Reduce women’s wages", "Encourage early detection", "Promote diet trends", "Ban processed food", "b"],
+    ["What is a pap smear used for?", "Pregnancy test", "Cholesterol level", "Cervical cancer screening", "Bone density", "c"],
+    ["A major challenge for indigenous women in healthcare is:", "High literacy", "Geographic inaccessibility", "Too many clinics", "Lack of traditions", "b"],
+    ["Teenage pregnancy often leads to:", "Longer education", "Increased health risks for mother and child", "Decreased poverty", "Higher employment rates", "b"],
+    ["The Magna Carta of Women guarantees:", "Military service for all", "Male-dominated leadership", "Comprehensive women’s health services", "Tax exemption", "c"],
+    ["Lack of reproductive education may cause:", "Informed choices", "Unintended pregnancies", "Gender balance", "Economic growth", "b"],
+    ["Who is most at risk for reproductive health issues?", "Employed women", "Poor and marginalized women", "College graduates", "Married men", "b"],
+    ["Which program supports nutrition for pregnant women?", "Balik Eskwela", "K to 12 Program", "Buntis Congress / Nutrition Month", "Barangay Justice", "c"],
+    ["Health equity means:", "Same treatment for everyone", "Fair access based on need", "Free private care", "Medical tourism", "b"],
+    ["Reproductive health includes:", "Only childbirth services", "Physical, mental, and social well-being in all matters relating to the reproductive system", "Surgical operations only", "Herbal healing", "b"],
+    ["Which of the following is part of women's health advocacy?", "Ignoring menstruation", "Promoting silence", "Educating about menstrual hygiene and reproductive rights", "Focusing only on men’s issues", "c"]
+  ];
+
+  let html = '';
+  questions.forEach((q, i) => {
+    const qNum = i + 1;
+    const [question, a, b, c, d, answer] = q;
+    html += `
+      <div class="question" data-answer="${answer}">
+        <h3>${qNum}. ${question}</h3>
+        <div class="options">
+          <label><input type="radio" name="q${qNum}" value="a"> ${a}</label>
+          <label><input type="radio" name="q${qNum}" value="b"> ${b}</label>
+          <label><input type="radio" name="q${qNum}" value="c"> ${c}</label>
+          <label><input type="radio" name="q${qNum}" value="d"> ${d}</label>
+        </div>
+        <div class="feedback" id="feedback${qNum}"></div>
+      </div>
+    `;
+  });
+
+  document.write(html);
+</script>
+
+      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit</button>
+      <a href="QuizzesPage.html">← Back to Quizzes</a>
+      <div id="result"></div>
+    </form>
+  </div>
+
+  <script>
+    function submitQuiz() {
+      let score = 0;
+      const totalQuestions = 20;
+
+      for (let i = 1; i <= totalQuestions; i++) {
+        const question = document.querySelector(`.question:nth-of-type(${i})`);
+        const correctAnswer = question.getAttribute('data-answer');
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        const feedback = document.getElementById(`feedback${i}`);
+
+        if (selected) {
+          if (selected.value === correctAnswer) {
+            feedback.textContent = "Correct!";
+            feedback.className = "feedback correct";
+            score++;
+          } else {
+            feedback.textContent = "Incorrect.";
+            feedback.className = "feedback incorrect";
+          }
+        } else {
+          feedback.textContent = "No answer selected.";
+          feedback.className = "feedback incorrect";
+        }
+      }
+
+      document.getElementById('result').textContent = `You scored ${score} out of ${totalQuestions}`;
+    }
+  </script>
+
+</body>
+</html>

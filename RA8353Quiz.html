@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title> Anti-Rape Law or RA 8353 </title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #fdf6f9;
+      color: #333;
+      padding: 20px;
+      margin: 0;
+    }
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
+      background: #ffe3ec;
+      border-bottom: 5px solid #f48fb1;
+    }
+    header h1 {
+      font-size: 2em;
+      color: #ad1457;
+      margin: 0;
+    }
+    .quiz-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 25px;
+      background: #fff0f5;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    .question {
+      margin-bottom: 30px;
+    }
+    .question h3 {
+      color: #6a1b9a;
+      margin-bottom: 10px;  
+      font-weight: 600;
+    }
+    .options label {
+      display: block;
+      margin: 10px 0;
+      padding: 10px 15px;
+      background: #fce4ec;
+      border-radius: 10px;
+      border: 1px solid #f8bbd0;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .options label:hover {
+      background-color: #f8bbd0;
+    }
+    .options input[type="radio"] {
+      margin-right: 10px;
+    }
+    #submitBtn {
+      background-color: #f06292;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      font-size: 1em;
+      font-weight: 600;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+      display: block;
+      margin: 30px auto 10px;
+    }
+    #submitBtn:hover {
+      background-color: #ec407a;
+    }
+     a {
+    text-align: center;
+    display: block;
+    color: #7b1fa2;
+    text-decoration: none;
+    margin-top: 15px;
+  }
+
+    .feedback {
+      font-weight: bold;
+      margin-top: 8px;
+      padding-left: 5px;
+    }
+    .correct {
+      color: #388e3c;
+    }
+    .incorrect {
+      color: #d32f2f;
+    }
+    #result {
+      text-align: center;
+      font-size: 1.4em;
+      margin-top: 30px;
+      padding: 10px;
+      background-color: #f3e5f5;
+      border-radius: 12px;
+      color: #4a148c;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Anti-Rape Law or RA 8353 Quiz  </h1>
+  </header>
+
+  <div class="quiz-container">
+    <form id="quizForm">
+     
+<script>
+  const questions = [
+    ["What does RA 8353 amend in the Revised Penal Code of the Philippines?",
+     "Article 333",
+     "Article 335",
+     "Article 247",
+     "Article 344",
+     "b"],
+
+    ["RA 8353 is also known as the:",
+     "Anti-Violence Law",
+     "Women's Rights Act",
+     "Anti-Rape Law of 1997",
+     "Gender Equality Law",
+     "c"],
+
+    ["Which of the following is a significant change brought by RA 8353?",
+     "Rape is reclassified as a crime against chastity",
+     "Rape is reclassified as a crime against persons",
+     "Rape penalties are removed",
+     "Rape can only be committed against women",
+     "b"],
+
+    ["Under RA 8353, rape can be committed by:",
+     "Only strangers",
+     "Only men",
+     "A spouse or partner",
+     "Only authority figures",
+     "c"],
+
+    ["What does RA 8353 say about consent?",
+     "Consent is irrelevant",
+     "Consent is presumed in marriage",
+     "Consent must be explicit and voluntary",
+     "Consent can be withdrawn only verbally",
+     "c"],
+
+    ["Marital rape is recognized under RA 8353. What does this mean?",
+     "Husbands cannot be charged with rape",
+     "Marriage implies permanent consent",
+     "A spouse can be guilty of rape",
+     "Only single people can be victims",
+     "c"],
+
+    ["Which of the following is NOT a circumstance that aggravates rape under RA 8353?",
+     "Use of deadly weapon",
+     "Victim is under 12 years old",
+     "Rape occurs in daylight",
+     "Offender is in a position of authority",
+     "c"],
+
+    ["How does RA 8353 treat rape involving two or more perpetrators?",
+     "It reduces penalties",
+     "It increases penalties",
+     "It has no effect",
+     "It dismisses the case",
+     "b"],
+
+    ["What is the minimum age where the law recognizes statutory rape?",
+     "14 years old",
+     "16 years old",
+     "18 years old",
+     "12 years old",
+     "d"],
+
+    ["Which term describes when a victim is raped due to threats or intimidation?",
+     "Coercion",
+     "Force majeure",
+     "Implied consent",
+     "Legal assault",
+     "a"],
+
+    ["Who can file a rape case under RA 8353?",
+     "Only the victim",
+     "Only the parents",
+     "Any citizen",
+     "The victim or legal guardian",
+     "d"],
+
+    ["What kind of rape is committed using objects or other body parts?",
+     "Marital rape",
+     "Aggravated rape",
+     "Sexual assault",
+     "Statutory rape",
+     "c"],
+
+    ["Which of these is a primary goal of RA 8353?",
+     "Promote divorce",
+     "Promote chastity",
+     "Protect sexual autonomy",
+     "Limit police powers",
+     "c"],
+
+    ["When was RA 8353 enacted?",
+     "2000",
+     "1997",
+     "2001",
+     "1989",
+     "b"],
+
+    ["Which sector helped push for the passing of RA 8353?",
+     "Religious groups",
+     "Armed Forces",
+     "Women’s rights advocates",
+     "Business community",
+     "c"],
+
+    ["What happens if the victim of rape is mentally incapacitated?",
+     "Case is dismissed",
+     "Offender is not liable",
+     "Consent cannot be validly given",
+     "Offender is presumed innocent",
+     "c"],
+
+    ["How is rape punished under RA 8353?",
+     "Fine only",
+     "Reprimand and counseling",
+     "Reclusion perpetua",
+     "Community service",
+     "c"],
+
+    ["Rape under RA 8353 is considered a:",
+     "Private crime",
+     "Public crime",
+     "Family crime",
+     "Civic dispute",
+     "b"],
+
+    ["What does reclusion perpetua mean?",
+     "House arrest",
+     "Life imprisonment (30–40 years)",
+     "Community monitoring",
+     "Bail is allowed",
+     "b"],
+
+    ["Which of these best describes RA 8353’s impact?",
+     "It weakened laws on sexual crimes",
+     "It redefined and strengthened rape laws",
+     "It focused on property rights",
+     "It removed penalties for offenders",
+     "b"]
+  ];
+
+  let html = '';
+  questions.forEach((q, i) => {
+    const qNum = i + 1;
+    const [question, a, b, c, d, answer] = q;
+    html += `
+      <div class="question" data-answer="${answer}">
+        <h3>${qNum}. ${question}</h3>
+        <div class="options">
+          <label><input type="radio" name="q${qNum}" value="a"> ${a}</label>
+          <label><input type="radio" name="q${qNum}" value="b"> ${b}</label>
+          <label><input type="radio" name="q${qNum}" value="c"> ${c}</label>
+          <label><input type="radio" name="q${qNum}" value="d"> ${d}</label>
+        </div>
+        <div class="feedback" id="feedback${qNum}"></div>
+      </div>
+    `;
+  });
+
+  document.write(html);
+</script>
+
+      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit</button>
+      <a href="QuizzesPage.html">← Back to Quizzes</a>
+      <div id="result"></div>
+    </form>
+  </div>
+
+  <script>
+    function submitQuiz() {
+      let score = 0;
+      const totalQuestions = 20;
+
+      for (let i = 1; i <= totalQuestions; i++) {
+        const question = document.querySelector(`.question:nth-of-type(${i})`);
+        const correctAnswer = question.getAttribute('data-answer');
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        const feedback = document.getElementById(`feedback${i}`);
+
+        if (selected) {
+          if (selected.value === correctAnswer) {
+            feedback.textContent = "Correct!";
+            feedback.className = "feedback correct";
+            score++;
+          } else {
+            feedback.textContent = "Incorrect.";
+            feedback.className = "feedback incorrect";
+          }
+        } else {
+          feedback.textContent = "No answer selected.";
+          feedback.className = "feedback incorrect";
+        }
+      }
+
+      document.getElementById('result').textContent = `You scored ${score} out of ${totalQuestions}`;
+    }
+  </script>
+
+</body>
+</html>
